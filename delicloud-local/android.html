@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+		<meta name="format-detection" content="telephone=no"/>
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="msapplication-tap-highlight" content="no"/>
+		<meta name="fragment" content="!"/>
+        <link rel="shortcut icon" type="image/x-icon" href=""/> 
+        <meta name="keywords" content=""/>
+        <meta name="description" content=""/>
+        <meta name="author" content="" />
+        <meta name="copyright" content=""/>
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <link rel="stylesheet" href="./css/style.css"/>
+		<title>得力应用</title>
+	</head>
+	<body>
+		<div class="deliapi_header">得力接口测试android</div>
+		<div class="deliapi_container">
+		    <div class="deliapi_index_container">
+		        <ul class="label_box lbox_close deliapi_index_list">
+		            <li class="label_item deliapi_index_item"><a class="label_inner" href="#menu-common">通用接口</a>
+		            </li>
+		            <li class="label_item deliapi_index_item"><a class="label_inner" href="#menu-app">APP业务接口</a>
+		            </li>
+		        </ul>
+		    </div>
+		    <div class="lbox_close deliapi_form">
+		        <h3 id="menu-common">通用接口</h3>
+		        <span class="desc">设置标题，应用使用过程中，需要修改导航栏标题时调用</span>
+		        <button class="btn btn_primary" data-type="setTitle">setTitle</button>
+		        <span class="desc">设置右侧导航，应用使用过程中，需要修改右侧导航文字，设置导航为图标，改变导航点击事件时调用</span> 
+		        <button class="btn btn_primary" data-type="setRight">setRight</button>
+		        <span class="desc">关闭webview，应用使用过程中，需要直接关闭webview返回原生入口时调用</span> 
+		        <button class="btn btn_primary" data-type="close">close</button>
+		        <span class="desc">上传图片，应用使用过程中，需要上传图片时调用，可拍照或从手机相册中选择上传</span> 
+		        <button class="btn btn_primary" data-type="upload">upload</button>
+		        <span class="desc">预览图片，应用使用过程中，需要预览图片时调用</span> 
+		        <button class="btn btn_primary" data-type="preview">preview</button>
+		        <span class="desc">上传文件，应用使用过程中，需要上传文件时调用</span> 
+		        <button class="btn btn_primary" data-type="file">file</button>
+		        <span class="desc">查看地理位置，应用使用过程中，需要原生内置地图查看地理位置时调用</span> 
+		        <button class="btn btn_primary" data-type="open">open</button>
+		        <span class="desc">获取地理位置，应用使用过程中，需要原生内置地图获取地理位置时调用</span> 
+		        <button class="btn btn_primary" data-type="get">get</button>
+		        <span class="desc">分享，应用使用过程中，需要分享时调用</span>
+		        <button class="btn btn_primary" data-type="share">share</button>
+		        <span class="desc">手机震动，自动触发手机进行震动操作</span> 
+		        <button class="btn btn_primary" data-type="vibrate">vibrate</button>
+		        <span class="desc">获取网络类型</span>
+		        <button class="btn btn_primary" data-type="getNetworkType">getNetworkType</button>
+		        <span class="desc">获取手机唯一识别码</span>
+		        <button class="btn btn_primary" data-type="getUUID">getUUID</button>
+		        <span class="desc">获取手机接入的热点信息</span>
+		        <button class="btn btn_primary" data-type="getInterface">getInterface</button>
+		        <h3 id="menu-app">APP业务接口</h3>
+		        <span class="desc">添加智能设备，应用使用过程中，需要添加并绑定新的智能设备时调用</span>
+		        <button class="btn btn_primary" data-type="bind">bind</button>
+		        <span class="desc">打电话</span>
+		        <button class="btn btn_primary" data-type="telephoneCall">telephoneCall</button>
+				<span class="desc">打开聊天会话</span>
+		        <button class="btn btn_primary" data-type="chatOpen">chatOpen</button>
+		        <span class="desc">选择企业通讯录中的人，应用使用过程中，需要选择企业通讯录中的人，从指定可选的顶级部门中选择，如未设置可选的顶级部门，则默认在团队的最顶级部门中选择</span>
+		        <button class="btn btn_primary" data-type="user">user.select</button>
+		        <span class="desc">选择企业通讯录中的部门，应用使用过程中，需要选择企业通讯录中的部门，从指定可选的顶级部门中选择，如未设置可选的顶级部门，则默认在团队的最顶级部门中选择</span>
+		        <button class="btn btn_primary" data-type="department">department.select</button>
+		        <!-- total 17 2017-09-14 -->
+		    </div>
+		</div>
+		<script src="./js/jquery.js"></script>
+		<!-- <script src="http://static.delicloud.com:8181/js/delicloud.min.js?v=001"></script> -->
+		<script src="./js/delicloud.js?v=003"></script>
+        <script src="./js/index.js?v=003"></script>
+	</body>
+</html>

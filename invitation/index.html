@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+		<meta name="format-detection" content="telephone=no"/>
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="msapplication-tap-highlight" content="no"/>
+		<meta name="fragment" content="!"/>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <script src="./js/mobile.js"></script>
+		<title>得力邀请</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+	</head>
+	<body>
+		<!--页面框架-->
+		<div id="page">
+      <header class="header">
+          <div class="title"><span class="icon"></span>得力助手</div>
+          <div id="avatar" class="avatar">
+              <img src="http://www.nbdeli.com/formwork/default/images/logo.gif" alt="">
+          </div>
+          <div id="slogon">
+              <p><span class="name">黄勇刚</span>邀请你加入</p>
+              <p class="group group-border">得力团队</p>
+          </div>
+      </header>
+	    <section class="content content-input" style="display: block;">
+          <div class="formInput formInputPhone">
+              <input id="phone" name="phone" type="tel" placeholder="手机号" maxlength="11" require />
+              <div class="phoneCode"><span data-region="86">+86</span></div>
+          </div>
+          <div class="formInput">
+              <input id="name" type="text" name="name" placeholder="姓名" maxlength="20" />
+          </div>
+          <div class="formInput">
+              <input type="text" id="reason" name="reason" placeholder="补充信息（选填）" maxlength="50" />
+              <input type="hidden" name="" value="" />
+          </div>
+          <div class="input-code formInput">
+              <input type="text" id="captcha" placeholder="验证码" maxlength="6" require />
+              <canvas id="code" width="76" height="30" title="如验证码无法辨别，点击即可刷新。" alt="如验证码无法辨别，点击即可刷新。"></canvas>
+          </div>
+          <button id="submit">
+              <span class="addText">加入团队</span>
+          </button>
+      </section>
+      <section class="content content-complete" style="display: none;">
+          <div class="line"></div>
+          <div id="completeCont" class="complete-cont">
+              <div id="sendSuccess" class="tips-text">申请已提交!</div>
+              <div id="sendError" class="hide tips-text">你已存在得力团队中</div>
+              <div id="subSuccessText" class="tips-text-sub">正在等待管理员审核</div>
+              <div id="subErrorText" class="hide tips-text-sub">下载得力助手并验证该手机后即可登录</div>
+          </div>
+          <button class="download-app"><a href="javascript:;">下载得力助手</a></button>
+      </section>
+		</div>
+    <div id="areaCode" class="page">
+      <header class="header-box fixed border-bottom">
+          <h1>选择国家和地区</h1>
+          <a class="back" href="javascript:;"></a>
+      </header>
+    <div class="page-content">
+      <div class="box">
+        <div class="left">
+          <div class="left-inner iosScrollFix" id="scroll"></div>
+          <div class="nav-right">
+              <ul class="nav-inner show"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--对话框-->
+    <div id="dialogs">
+        <!--用于展示等待提示-->
+        <div id="loading" class="dialogBox" style="">
+          <div id="loadingIco"></div>
+          <div id="loadingText">正在努力加载中...</div>
+        </div>
+    </div>
+    <!--底部提示-->
+    <div id="hint" class="dialogBox"><div class="text">_</div></div>
+    <script src="./js/sea.js"></script>
+    <script src="./js/index.js"></script>
+    </body>
+</html>

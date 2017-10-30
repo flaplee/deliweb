@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<?php
+require_once(__DIR__ . "/api/Auth.php");
+?>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-category-bar-style" content="black"/>
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="msapplication-tap-highlight" content="no"/>
+        <meta name="fragment" content="!"/>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <!-- <script src="./js/mobile.js"></script> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+        <title>应用实例</title>
+        <link type="text/css" rel="stylesheet" href="/css/swipers.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <!-- config中signature由jsticket产生，若jsticket失效，则signature失效，表现为dd.error()返回“权限校验失败”之错误。 -->
+        <!-- 在请求新的jsticket之后，旧的ticket会失效，导致旧ticket产生的signature失效。 -->
+        <script type="text/javascript">
+          var config = {"nonceStr":"abcdefg","serviceId":"123456789","serviceKey":"123456789","timestamp":1508317821897};
+        </script>
+    </head>
+    <body>
+        <!--页面框架-->
+        <div id="page">
+          <div class="header">
+            <div class="title"><span class="demo" id="demoList">应用实例</span></div>
+            <a class="back"> </a>
+            <a class="leftMenuBtn"></a>
+            <a class="rightMenuBtn"></a>
+          </div>
+          <div class="header-inner clearfix" style="display: none;">
+            <p value="30" class="cell">实例1</p>
+            <p value="3" class="cell">实例2</p>
+            <p value="20" class="cell">实例3</p>
+            <p value="2" class="cell">实例4</p>
+            <p value="10" class="cell">实例5</p>
+            <p value="1" class="cell">实例6</p>
+          </div>
+          <div class="content">
+            <div class="instance">
+              <div id="instance-container" class="iosScrollFix">
+                <div class="part-box">
+                  <div class="part">
+                      <h3>基础功能</h3>
+                      <div class="base-box">
+                        <a class="base-item" href="javascript:;"></a>
+                        <a class="base-item" href="javascript:;"></a>
+                        <a class="base-item" href="javascript:;"></a>
+                        <a class="base-item" href="javascript:;"></a>
+                        <button class="btn btn-block btn-default userbtn">选人</button>
+                        <button class="btn btn-block btn-default departmentbtn">选部门</button>
+                      </div>
+                  </div>
+                  <div class="part">
+                      <h3>图片预览</h3>
+                      <div class="swiper-container">
+                          <div class="swiper-wrapper">
+                              <div class="swiper-slide" style="background-image:url(/images/device1.jpg)"></div>
+                              <div class="swiper-slide" style="background-image:url(/images/device2.jpg)"></div>
+                              <div class="swiper-slide" style="background-image:url(/images/device3.jpg)"></div>
+                              <div class="swiper-slide" style="background-image:url(/images/device1.jpg)"></div>
+                              <div class="swiper-slide" style="background-image:url(/images/device2.jpg)"></div>
+                          </div>
+                          <div class="swiper-button-next">
+                          </div>
+                          <div class="swiper-button-prev">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="part">
+                      <h3>考勤机</h3>
+                      <div class="list-box">
+                          <ul>
+                              <li class="clearfix">
+                                <a href="javascript:;">
+                                  <div class="msg-box">
+                                      <div>
+                                          <i class="icon-time"></i>
+                                      </div>
+                                      <div>
+                                          <p><span style="color: rgb(94, 199, 246);">考勤机sn0001</span></p>
+                                          <p>智能考勤</p>
+                                      </div>
+                                  </div>
+                                </a>
+                                <a href="javascript:;">
+                                  <div class="msg-box">
+                                      <div>
+                                          <i class="icon-time"></i>
+                                      </div>
+                                      <div>
+                                          <p><span style="color: rgb(94, 199, 246);">考勤机sn0002</span></p>
+                                          <p>智能考勤</p>
+                                      </div>
+                                  </div>
+                                </a>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="part">
+                    <div class="staff">
+                        <p class="buttons-row bar">
+                          <a href="javascript:;" class="user active" type="1">应用</a>
+                          <a href="javascript:;" class="dept" type="2">设备</a>
+                        </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-box" style="display: block;">
+                  <a class="project-item" href="javascript:;">
+                    <div class="project-icon"><img src="/images/avatar.jpg" /></div>
+                    <div class="project-info">
+                      <div class="project-title">考勤机</div>
+                      <div class="project-content">支持指纹、人脸、wifi、gps、蓝牙、二维码等多种方式考勤，可以自动发送考勤提醒，统计考勤数据</div>
+                    </div>
+                  </a>
+                  <a class="project-item" href="javascript:;">
+                    <div class="project-icon"><img src="/images/avatar.jpg" /></div>
+                    <div class="project-info">
+                      <div class="project-title">任务管理</div>
+                      <div class="project-content">创建、分派任务；任务完成情况反馈</div>
+                    </div>
+                  </a>
+                  <a class="project-item" href="javascript:;">
+                    <div class="project-icon"><img src="/images/avatar.jpg" /></div>
+                    <div class="project-info">
+                      <div class="project-title">ppt控制器</div>
+                      <div class="project-content">可以查看正在开的会议屏幕，可以选择重要屏幕内容截屏并保存，可以管理PPT控制笔使用状态，可以控制会议是否公开</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--对话框-->
+        <div id="dialog">
+          <div>
+            <div class="content"></div>
+            <div class="btns"><a class="no" href="javascript:;">取消</a><a class="yes" href="javascript:;">推荐开通</a></div>
+            <a class="close" href="javascript:;"></a>
+          </div>
+        </div>
+        <!--用于展示等待提示-->
+        <div id="loading">
+          <div><div class="ico"></div>_</div>
+        </div>
+        <!--底部提示-->
+        <div id="hint"><div class="text">_</div></div>
+        <script src="/js/sea.js"></script>
+        <script src="/js/zepto.min.js"></script>
+        <script src="/js/fastClick.js"></script>
+        <script src="/js/swiper.jquery.min.js"></script>
+        <script src="/js/WebViewJavascriptBridge.js?v=0.01"></script>
+        <script src="/js/delicloud.js?v=0.02"></script>
+        <script type="text/javascript">
+            deli.config({
+              "noncestr":"abcdefg",
+              "serviceId":"355373255801962497",
+              "serviceKey":"bbTMIYs8bHww6Zq9AUd5tfXX",
+              "timestamp": 1508755836143,
+              "signature":"b8386dc73145bb2e2ec76a0078638df7",
+              "jsApiList": ['common.navigation.setTitle','common.navigation.setRight','common.navigation.close','common.image.upload','common.image.preview','common.location.open','common.location.get','common.message.share','common.phone.vibrate','common.connection.getNetworkType','common.phone.getUUID','common.phone.getInterface','app.device.bind','app.user.telephoneCall','app.user.chatOpen','app.user.select','app.department.select']
+            });
+            var Page = {
+              init: function() {
+                //ios bridge 暂时放到js中
+                function setupWebViewJavascriptBridge(callback) {
+                    if (window.WebViewJavascriptBridge){
+                        return callback(WebViewJavascriptBridge);
+                    }
+                    if (window.WVJBCallbacks){
+                        return window.WVJBCallbacks.push(callback);
+                    }
+                    window.WVJBCallbacks = [callback];
+                    var WVJBIframe = document.createElement('iframe');
+                    WVJBIframe.style.display = 'none';
+                    WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                    document.documentElement.appendChild(WVJBIframe);
+                    setTimeout(function() {
+                        document.documentElement.removeChild(WVJBIframe)
+                    }, 0)
+                };
+                setupWebViewJavascriptBridge(function(bridge) {
+                });
+                var self = this;
+                FastClick.attach(document.body);
+                self.bindEvt();
+              },
+              bindEvt: function() {
+                var self = this;
+                setTimeout(function() {
+                  deli.common.navigation.setTitle({
+                    "title": "应用实例1"
+                  }, function(data) {}, function(resp) {});
+                }, 1000);
+                var swiper = new Swiper('.swiper-container', {
+                    loop: false,
+                    pagination: '.swiper-pagination',
+                    slidesPerView: 3,
+                    paginationClickable: false,
+                    spaceBetween: 15,//30
+                    freeMode: false,
+                    onClick: function(swiper){
+                        var index = swiper.clickedIndex + 1;
+                        var current = index ? index : 1;
+                        deli.common.image.preview({
+                            current:current,
+                            urls: ['http://192.168.0.104:1992/images/device1.jpg', 'http://192.168.0.104:1992/images/device2.jpg', 'http://192.168.0.104:1992/images/device3.jpg', 'http://192.168.0.104:1992/images/device1.jpg', 'http://192.168.0.104:1992/images/device2.jpg']
+                        }, function(data) {}, function(resp) {});
+                    },
+                    onInit:function(swiper){
+                    },
+                    onSlideChangeEnd:function(swiper){
+                    }
+                });
+                var $page = $('#page'),
+                    $instance = $page.find('.content > .instance #instance-container'),
+                    $partBox = $instance.find('.part-box'),
+                    $partStaffBtn = $instance.find('.staff .buttons-row a'),
+                    $userbtn = $instance.find('button.userbtn'),
+                    $departmentbtn = $instance.find('button.departmentbtn');
+                $partStaffBtn.on('click',function(){
+                    var type = $(this).attr('type');
+                    if(type == 1){}else{}
+                    $partStaffBtn.removeClass('active');
+                    $(this).addClass('active');
+                });
+                $userbtn.on('click', function() {
+                  deli.app.user.select({
+                    "title": "可选人员",
+                    "name": "得力团队",
+                    "id":"355671868335718400",
+                    "mode": "multi", //多选
+                    "rootDeptId": "355671868335718401", //设置可选顶级部门的Id
+                    "max": 200, //选择人数限制
+                    "userIds": ["355672617635545088", "362618666346348544"],
+                    //已选的用户
+                    "disabledUserIds": ["355672596013907968", "360009358211284992"]
+                  }, function(data) {
+                      alert(JSON.stringify(data));
+                  }, function(resp) {});
+                });
+                $departmentbtn.on('click', function() {
+                  deli.app.department.select({
+                      "title": "可选部门",
+                      "mode": "multi", //多选
+                      "name": "得力团队",
+                      "id":"355671868335718400",
+                      "rootDeptId": "355671868335718401", //设置可选顶级部门的Id
+                      "max": 200, //选择部门数限制
+                      "selectedDeptIds": ["355671868335718404", "355678628404527106"],
+                      //已选的部门
+                      "disabledDeptIds": ["355678628404527106", "355678749540220928"]
+                      //禁止选择的部门
+                  }, function(data) {
+                      alert(JSON.stringify(data));
+                  }, function(resp) {});
+                });
+              }
+            };
+            Page.init();
+            deli.ready(function() {
+              alert("deliReady!!!");
+            });
+            deli.error(function(err) {
+              alert('error: ' + JSON.stringify(err));
+            });
+        </script>
+        <!-- <script src="/js/index.js"></script> -->
+    </body>
+</html>

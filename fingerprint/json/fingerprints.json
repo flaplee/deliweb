@@ -1,0 +1,54 @@
+/*
+*  api : /device/kq/users 获取指纹列表
+*  type :  get
+*/
+{
+	"code": 0,
+	"errorMsg": "",
+	"data":[{
+		"user_id":"355669228033933312",
+		"avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508327196283&di=85b33e8e857ce30f5172018f125204f1&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2f35b6f4c81630e924b999f36b.jpg",
+	    "name": "张飞",// 姓名
+	    "empno": "123456789",//工号
+	    "is_app_admin":true,
+	    "finger_count":0, //已录入指纹数量
+	    "finger_status":1, // 1 已录入，0 未录入
+	},{
+		"user_id":"355669228033933312",
+		"avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508327196283&di=85b33e8e857ce30f5172018f125204f1&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2f35b6f4c81630e924b999f36b.jpg",
+	    "name": "张飞2",// 姓名
+	    "empno": "1234567890",//工号
+	    "is_app_admin":false,
+	    "finger_count":1,  //已录入指纹数量
+	    "finger_status":1, // 1 已录入，0 未录入
+	}]
+}
+
+/*
+*  api : /device/kq/user/add  添加考情员工
+*  type :  post
+*  param2 : {users:[{
+		"user_id":"355669228033933312",
+		"avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508327196283&di=85b33e8e857ce30f5172018f125204f1&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2f35b6f4c81630e924b999f36b.jpg",
+	    "name": "张飞",// 姓名
+	    "empno": "123456789",//工号
+	    "is_app_admin":true,
+	    "finger_count":0, //已录入指纹数量
+	    "finger_status":0, // 1 已录入，0 未录入
+	}, {...} ]}
+*/
+{
+	"code": 0,
+	"errorMsg": ""
+}
+
+
+
+/*
+*  api : device/kq/finger/{user_id}  录入指纹
+*  type :  post
+*/
+{
+	"code": 0,
+	"errorMsg": ""
+}
