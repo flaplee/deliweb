@@ -60,6 +60,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                     "dataType": "jsonp",
                     "jsonp": "callback",
                     success: function(res) {
+                        //alert(JSON.stringify(res));
                         //util.hideLoading();
                         //deli.common.notification.hidePreloader({}, function(data) {}, function(resp) {});
                         util.hint('应用添加成功~');
@@ -105,9 +106,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                                  "organizationName":"得力个人团队"
                             }, function(data) {}, function(resp) {});*/
                             //deli.common.notification.showPreloader({}, function(data) {}, function(resp) {});
-                        }, function(resp) {
-                            console.log("resp",data);
-                        });
+                        }, function(resp) {});
                     }
                 });
             });
