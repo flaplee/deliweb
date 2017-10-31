@@ -167,8 +167,8 @@ define([], function() {
             hintCtn = document.getElementById('hint'),
             dialogCtn = document.getElementById('dialog'),
             dialogBox = dialogCtn.querySelector('div'),
-            dialogContent = dialogBox.querySelector(':scope>.content'),
-            dialogClose = dialogBox.querySelector(':scope>.close');
+            dialogContent = dialogBox.querySelector('.content'),
+            dialogClose = dialogBox.querySelector('.close');
         util.alert = function(text, callback) { //alert对话框
             openDialog('alert', text, callback);
         };
@@ -221,7 +221,7 @@ define([], function() {
             return loadingRT > 0;
         };
         util.hint = function(text, t) { //底部提示, 不干扰用户操作, 默认显示5秒
-            hintCtn.querySelector(':scope>.text').firstChild.data = text;
+            hintCtn.querySelector('.text').firstChild.data = text;
             if (hintmo) {
                 clearTimeout(hintmo);
             } else {
@@ -236,8 +236,8 @@ define([], function() {
         util.dialogEvents = {};
         //dialogClose.appendChild(util.makeSvg('close'));
         dialogClose.addEventListener('click', util.closeDialog, false);
-        dialogBox.querySelector(':scope>.btns>.yes').addEventListener('click', util.closeDialog, false);
-        dialogBox.querySelector(':scope>.btns>.no').addEventListener('click', function() {
+        dialogBox.querySelector('.btns>.yes').addEventListener('click', util.closeDialog, false);
+        dialogBox.querySelector('.btns>.no').addEventListener('click', function() {
             util.closeDialog();
         }, false);
 
@@ -283,231 +283,7 @@ define([], function() {
             dialogBox.style.bottom = dialogBox.style.right = '';
         }
     }();
-
-    ! function() {
-        //fix ios overscrolling on viewport issue
-        util.fixIosScrolling = function(o) {
-            var s, c;
-            if (browser.name === 'IOS') {
-                o.style.webkitOverflowScrolling = 'touch';
-                o.addEventListener('touchmove', stopEvent);
-                c = getComputedStyle(o);
-                if (c.overflowY === 'auto') {
-                    o.classList.add('iosScrollFix');
-                    if (c.display === 'none') {
-                        s = o.style.display;
-                        o.style.display = 'block';
-                        o.scrollTop = 1;
-                        o.style.display = s;
-                    } else {
-                        o.scrollTop = 1;
-                    }
-                    o.addEventListener('scroll', onscroll);
-                }
-            }
-        };
-
-        util.getScrollHeight = function(o) {
-            return o.classList.contains('iosScrollFix') ? o.scrollHeight - 1 : o.scrollHeight;
-        };
-
-        if (browser.name === 'IOS') {
-            window.addEventListener('touchmove', function(evt) {
-                evt.preventDefault();
-            });
-        }
-
-        //禁止各种scroll
-        window.addEventListener('scroll', noscroll, false);
-        document.documentElement.addEventListener('scroll', noscroll, false);
-        document.body.addEventListener('scroll', noscroll, false);
-        document.getElementById('page').addEventListener('scroll', noscroll, false);
-
-        function onscroll(evt) {
-            if (this.scrollTop === 0) {
-                this.scrollTop = 1;
-            } else if (this.scrollTop + this.clientHeight === this.scrollHeight) {
-                this.scrollTop -= 1;
-            }
-        }
-
-        // 重置scroll
-        function noscroll(evt) {
-            if (evt.target === this) {
-                if (this.scrollTo) {
-                    this.scrollTo(0, 0);
-                } else {
-                    this.scrollLeft = this.scrollTop = 0;
-                }
-            }
-        }
-
-        function cancelEvent(evt) {
-            evt.preventDefault();
-        }
-
-        function stopEvent(evt) {
-            evt.stopPropagation();
-        }
-    }();
-
-    ! function() {
-        util.listeners = {
-            add: function(o, e, f) {
-                if (!o.xEvents) {
-                    o.xEvents = function(evt) { //override internal event manager
-                        xEventProcessor(o, evt);
-                    };
-                }
-                if (!o.xEvents[e]) {
-                    o.xEvents[e] = [];
-                    o.xEvents[e].stack = [];
-                    o.xEvents[e].locked = false;
-                    if (o.addEventListener) {
-                        o.addEventListener(e, o.xEvents, false);
-                    } else if (o.attachEvent) {
-                        o.attachEvent('on' + e, o.xEvents);
-                    } else {
-                        o['on' + e] = o.xEvents;
-                    }
-                }
-                if (o.xEvents[e].locked) {
-                    o.xEvents[e].stack.push([false, f]);
-                } else {
-                    if (o.xEvents[e].indexOf(f) < 0) {
-                        o.xEvents[e].push(f);
-                    }
-                }
-            },
-            list: function(o, e) {
-                var r, n;
-                if (e) {
-                    if (o.xEvents && o.xEvents[e]) {
-                        r = o.xEvents[e].slice(0);
-                    } else {
-                        r = [];
-                    }
-                } else {
-                    r = {};
-                    if (o.xEvents) {
-                        for (n in o.xEvents) {
-                            if (o.xEvents[n] instanceof Array && o.xEvents[n].length > 0) {
-                                r[n] = o.xEvents[n].slice(0);
-                            }
-                        }
-                    }
-                }
-                return r;
-            },
-            remove: function(o, e, f) {
-                var n, addRemoveMark;
-                if (o.xEvents) {
-                    if (e) {
-                        if (o.xEvents[e]) {
-                            if (o.xEvents[e].locked) {
-                                if (f) {
-                                    o.xEvents[e].stack.push([true, f]);
-                                } else {
-                                    o.xEvents[e].stack.push(null);
-                                }
-                            } else {
-                                if (f) {
-                                    var tmp = o.xEvents[e].indexOf(f);
-                                    if (tmp !== -1) {
-                                        o.xEvents[e].splice(tmp, 1);
-                                    }
-                                } else {
-                                    o.xEvents[e].splice(0, o.xEvents[e].length);
-                                }
-                            }
-                            if (o.xEvents[e].length === 0) {
-                                delete o.xEvents[e];
-                                if (o.removeEventListener) {
-                                    o.removeEventListener(e, o.xEvents, false);
-                                } else if (o.detachEvent) {
-                                    o.detachEvent('on' + e, o.xEvents);
-                                } else {
-                                    o['on' + e] = null;
-                                }
-                            }
-                        }
-                    } else {
-                        if (!o.xEvents.removeMark) {
-                            for (n in o.xEvents) {
-                                if (!o.xEvents[n].locked) {
-                                    delete o.xEvents[n];
-                                    if (o.removeEventListener) {
-                                        o.removeEventListener(n, o.xEvents, false);
-                                    } else if (o.detachEvent) {
-                                        o.detachEvent('on' + n, o.xEvents);
-                                    } else {
-                                        o['on' + n] = null;
-                                    }
-                                } else {
-                                    addRemoveMark = true;
-                                }
-                            }
-                            if (addRemoveMark) {
-                                o.xEvents.removeMark = true;
-                            } else {
-                                o.xEvents = null;
-                            }
-                        }
-                    }
-                }
-            }
-        };
-
-        function xEventProcessor(o, evt) {
-            o.xEvents[evt.type].locked = true;
-            for (var i = 0; i < o.xEvents[evt.type].length; i++) {
-                o.xEvents[evt.type][i].call(o, evt);
-            }
-            o.xEvents[evt.type].locked = false;
-            while (o.xEvents[evt.type].stack.length > 0) {
-                if (o.xEvents[evt.type].stack[0]) {
-                    var tmp = o.xEvents[evt.type].indexOf(o.xEvents[evt.type].stack[0][1]);
-                    if (o.xEvents[evt.type].stack[0][0]) {
-                        if (tmp !== -1) {
-                            o.xEvents[evt.type].splice(tmp, 1);
-                        }
-                    } else {
-                        if (tmp === -1) {
-                            o.xEvents[evt.type].push(o.xEvents[evt.type].stack[0][1]);
-                        }
-                    }
-                } else {
-                    o.xEvents[evt.type].splice(0, o.xEvents[evt.type].length);
-                }
-                o.xEvents[evt.type].stack.shift();
-            }
-            if (o.xEvents[evt.type].length === 0) {
-                delete o.xEvents[evt.type];
-                if (o.removeEventListener) {
-                    o.removeEventListener(evt.type, o.xEvents, false);
-                } else if (o.detachEvent) {
-                    o.detachEvent('on' + evt.type, o.xEvents);
-                } else {
-                    o['on' + evt.type] = null;
-                }
-            }
-            if (o.xEvents.removeMark) {
-                delete o.xEvents.removeMark;
-                for (var n in o.xEvents) {
-                    delete o.xEvents[n];
-                    if (o.removeEventListener) {
-                        o.removeEventListener(n, o.xEvents, false);
-                    } else if (o.detachEvent) {
-                        o.detachEvent('on' + n, o.xEvents);
-                    } else {
-                        o['on' + n] = null;
-                    }
-                }
-                o.xEvents = null;
-            }
-        }
-    }();
-
+    
     window.util = util;
 
     return util;

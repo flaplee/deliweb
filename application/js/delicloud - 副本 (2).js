@@ -35,8 +35,11 @@ create delicloud.js for js_sdk api
         'common.notification.showPreloader',
         'common.notification.hidePreloader',
         'common.notification.toast',
-        'app.organization.create',
-        'app.config.init'
+        'app.organization.create', //内部使用，进入创建组织
+        'app.config.init', //内部使用，进入开始使用
+        'app.method.checkJsApis',
+        'app.user.get' //获取用户信息
+        
     ];
     var JSSDK_VERSION = '0.0.1';
     var ua = win.navigator.userAgent;
@@ -48,14 +51,14 @@ create delicloud.js for js_sdk api
     var version = matches && matches[1];
     var already = false; //是否已初始化
     var config = null; //缓存config参数
+    var appMethod = 'app.method.checkJsApis'; //权限校验方法名 app.method.checkJsApis, 防止抓包通过恶意请求,可以修改改为桥接处理
     var errorHandle = null; //缓存error回调
     var bridgeReady = false;
-
-/**
-    deli.config 配置签名对象
-    deli.ready 初始化完成
-    deli.error 权限校验失败时
-*/
+    /**
+     *    deli.config 配置签名对象
+     *    deli.ready 初始化完成
+     *    deli.error 权限校验失败时
+     */
     var deli = {
         ios: (/iPhone|iPad|iPod/i).test(ua),
         android: (/Android/i).test(ua),
@@ -75,10 +78,13 @@ create delicloud.js for js_sdk api
             config = {
                 serviceId: obj.serviceId || -1,
                 timestamp: obj.timestamp,
-                nonceStr: obj.nonceStr,
-                signature: obj.signature,
-                jsApiList: obj.jsApiList
+                noncestr: obj.noncestr,
+                sign: obj.signature
+                    /*jsApiList: obj.jsApiList*/
             };
+            if (obj.serviceId) {
+                config.serviceId = obj.serviceId;
+            }
         },
         error: function(fn) {
             errorHandle = fn;
@@ -90,9 +96,61 @@ create delicloud.js for js_sdk api
                     return console.log('bridge初始化失败')
                 }
                 //回调函数处理h5页面
-                callback(bridge);
+                //callback(bridge);
                 //to do: 判断config，进行权限校验 ,现在过滤config校验，直接访问
-                // 去掉config校验
+                // update time 2017-10-12 打开权限校验
+                if (config === null || !config.sign) {
+                    //callback(bridge);
+                    setTimeout(function() {
+                        errorHandle && errorHandle({
+                            code: -1,
+                            msg: '权限校验失败 配置签名对象错误'
+                        });
+                    });
+                } else {
+                    if (deli.ios) {
+                        bridge.callHandler(appMethod, config, function(res) {
+                            var data = JSON.parse(res) || {};
+                            var code = data.code;
+                            var msg = data.data.msg || '';
+                            var result = data.result;
+                            if (code === '0'&& data.data.code === '0') {
+                                callback(bridge);
+                            } else {
+                                setTimeout(function() {
+                                    errorHandle && errorHandle({
+                                        code: -1,
+                                        msg: '权限校验失败 ' + msg
+                                    });
+                                });
+                            }
+                        });
+                    } else if (deli.android) {
+                        var dataConfig = {
+                            "path": "/app/premission/check/public",
+                            "type": "get",
+                            "params": config
+                        };
+                        // update time 2017-10-16 android、ios改为相同同桥接库 
+                        bridge.callHandler(appMethod, dataConfig, function(res) {
+                            var data = JSON.parse(res) || {};
+                            var code = data.code;
+                            var msg = data.msg || '';
+                            var result = data.result;
+                            if (code === '0') {
+                                callback(bridge);
+                            } else {
+                                setTimeout(function() {
+                                    errorHandle && errorHandle({
+                                        code: -1,
+                                        msg: '权限校验失败 ' + msg
+                                    });
+                                });
+                            }
+                        });
+                    }
+                }
+
                 //第一次初始化后要做的事情
                 if (already === false) {
                     already = true;
@@ -116,14 +174,29 @@ create delicloud.js for js_sdk api
                         var conf = {
                             url: encodeURIComponent(window.location.href),
                             js: JSSDK_VERSION
-                            //配置需要检查id
                         };
                     }
                 }
             };
-
+            // ios Bridge初始化
+            var setupWebViewJavascriptBridge = function(callback) {
+                if (window.WebViewJavascriptBridge){
+                    return callback(WebViewJavascriptBridge);
+                }
+                if (window.WVJBCallbacks){
+                    return window.WVJBCallbacks.push(callback);
+                }
+                window.WVJBCallbacks = [callback];
+                var WVJBIframe = document.createElement('iframe');
+                WVJBIframe.style.display = 'none';
+                WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                document.documentElement.appendChild(WVJBIframe);
+                setTimeout(function() {
+                    document.documentElement.removeChild(WVJBIframe)
+                }, 0)
+            };
             //已经完成初始化的情况
-            if(deli.ios && win.WebViewJavascriptBridge){
+            if (deli.ios && win.WebViewJavascriptBridge) {
                 //防止ready延迟导致的问题
                 //init后，register的方法才能收到回调，重现方法：首次触发deli.ready延时
                 try {
@@ -132,15 +205,30 @@ create delicloud.js for js_sdk api
                         console.log('WebViewJavascriptBridge init: ', data, responseCallback);
                     });
                 } catch (e) {
-                    console.log(e.message);
+                    console.log(e.msg);
                 }
                 return fn(WebViewJavascriptBridge);
             } else if (deli.android && win.WebViewJavascriptBridge) {
+                try {
+                    WebViewJavascriptBridge.init(function(data, responseCallback) {
+                        //客户端send
+                        console.log('WebViewJavascriptBridge init: ', data, responseCallback);
+                    });
+                } catch (e) {
+                    console.log(e.msg);
+                }
                 // 安卓to do
                 return fn(WebViewJavascriptBridge);
             }
             //初始化主流程
-            if (true) {
+            if (deli.ios) {
+                console.log('开始监听WebViewJavascriptBridgeReady事件');
+                setupWebViewJavascriptBridge(function(bridge) {
+                    bridgeReady = true;
+                    fn(WebViewJavascriptBridge);
+                });
+            } else if (deli.android) {
+                // android、ios 使用相同库
                 console.log('开始监听WebViewJavascriptBridgeReady事件');
                 document.addEventListener('WebViewJavascriptBridgeReady', function() {
                     if (typeof WebViewJavascriptBridge === 'undefined') {
@@ -152,11 +240,13 @@ create delicloud.js for js_sdk api
                             //console.log('WebViewJavascriptBridge init: ', data, responseCallback);
                         });
                     } catch (e) {
-                        console.log(e.message);
+                        console.log(e.msg);
                     }
                     bridgeReady = true;
                     fn(WebViewJavascriptBridge);
                 }, false);
+            } else {
+                return console.log('很抱歉，尚未支持您所持设备');
             }
         }
     };
@@ -212,76 +302,78 @@ create delicloud.js for js_sdk api
             var data = response || {};
             var code = data.code;
             var result = data.result;
-            //code 0 表示成功, 其它表示失败
-            if (code === '0') {
-                //数据处理
-                switch(method){
-                    case 'common.image.upload':
-                        var odata = {
-                            "url": data.result
-                        };
-                        result = odata;
-                        break;
-                    case 'common.location.get':
-                        break;
-                    case 'common.connection.getNetworkType':
-                        var odata = {
-                            "getNetworkType": data.result
-                        };
-                        result = odata;
-                        break;
-                    case 'common.phone.getUUID':
-                        var odata = {
-                            "uuid": data.result
-                        };
-                        result = odata;
-                        break;
-                    case 'common.phone.getInterface':
-                        var odata = {
-                            "ssid":data.result.SSID,
-                            "localMac":"",
-                            "localIpAddress":"",
-                            "mac":data.result.BSSID,
-                            "ipAddress":data.result.SSIDDATA
-                        };
-                        result = odata;
-                        break;
-                    case 'app.user.select':
-                        var odata = {
-                            data:[]
-                        };
-                        if(data.result.length > 0){
-                            data.result.forEach(function(ele){
-                                var oTemp = {
-                                    "userId":ele.user_id,
-                                    "name":ele.name,
-                                    "avatar":"",
-                                    "empno":ele.employee_num
-                                }
-                                odata.data = odata.data.concat(oTemp);
-                            });
+            if (deli.ios) {
+                //code 0 表示成功, 其它表示失败
+                if (code === '0') {
+                    //数据处理 update 2017-10-25
+                    /*switch (method) {
+                        case 'common.image.upload':
+                            var odata = {
+                                "url": data.result
+                            };
                             result = odata;
-                        }
-                    break;
-                    case 'app.department.select':
-                        var odata = {
-                            data:[]
-                        };
-                        if(data.result.length > 0){
-                            data.result.forEach(function(ele){
-                                var oTemp = {
-                                    "deptId":ele.parent_id,
-                                    "deptName":ele.name
-                                }
-                                odata.data = odata.data.concat(oTemp);
-                            });
+                            break;
+                        case 'common.location.get':
+                            break;
+                        case 'common.connection.getNetworkType':
+                            var odata = {
+                                "getNetworkType": data.result
+                            };
                             result = odata;
-                        }
-                    break;
+                            break;
+                        case 'common.phone.getUUID':
+                            var odata = {
+                                "uuid": data.result
+                            };
+                            result = odata;
+                            break;
+                        case 'common.phone.getInterface':
+                            var odata = {
+                                "ssid": data.result.SSID,
+                                "localMac": "",
+                                "localIpAddress": "",
+                                "mac": data.result.BSSID,
+                                "ipAddress": data.result.SSIDDATA
+                            };
+                            result = odata;
+                            break;
+                        case 'app.user.select':
+                            var odata = {
+                                data: []
+                            };
+                            if (data.result.length > 0) {
+                                data.result.forEach(function(ele) {
+                                    var oTemp = {
+                                        "userId": ele.user_id,
+                                        "name": ele.name,
+                                        "avatar": "",
+                                        "empno": ele.employee_num
+                                    }
+                                    odata.data = odata.data.concat(oTemp);
+                                });
+                                result = odata;
+                            }
+                            break;
+                        case 'app.department.select':
+                            var odata = {
+                                data: []
+                            };
+                            if (data.result.length > 0) {
+                                data.result.forEach(function(ele) {
+                                    var oTemp = {
+                                        "deptId": ele.parent_id,
+                                        "deptName": ele.name
+                                    }
+                                    odata.data = odata.data.concat(oTemp);
+                                });
+                                result = odata;
+                            }
+                            break;
+                    }*/
+                    successCallback && successCallback.call(null, result);
+                } else {
+                    failCallback && failCallback.call(null, result, code);
                 }
-                successCallback && successCallback.call(null, result);
-            } else {
-                failCallback && failCallback.call(null, result, code);
             }
         };
         var watch = true; //是否为监听操作，如果是监听操作，后面要注册事件
@@ -289,12 +381,6 @@ create delicloud.js for js_sdk api
         switch (method) {}
         //消息接入：android和iOS区分处理
         if (deli.android) {
-            //安卓 to do
-            // var arr = method.split('.');
-            // var suff = arr.pop();
-            // var pre = arr.join('.');
-            // //console.log('Android对接：', pre, suff, p);
-            // WebViewJavascriptBridge(successCallback, failCallback, pre, suff, p);
             if (watch) {
                 WebViewJavascriptBridge.registerHandler(method, function(data, responseCallback) {
                     callback({
@@ -308,11 +394,10 @@ create delicloud.js for js_sdk api
                         msg: '成功'
                     });
                 });
-                WebViewJavascriptBridge.callHandler(method, p,callbackSuccess);
+                WebViewJavascriptBridge.callHandler(method, p, callbackSuccess);
             } else {
                 WebViewJavascriptBridge.callHandler(method, p, callbackSuccess);
             }
-
         } else if (deli.ios) {
             if (watch) {
                 WebViewJavascriptBridge.registerHandler(method, function(data, responseCallback) {
@@ -337,10 +422,6 @@ create delicloud.js for js_sdk api
     regMethods.forEach(function(method) {
         regNameSpace(method, function(param, callbackSuccess, callbackFail) {
             //api
-            //console.log("method", method);
-            //console.log("param", param);
-            //console.log("callbackSuccess", callbackSuccess);
-            //console.log("callbackFail", callbackFail);
             generator(method, param, callbackSuccess, callbackFail);
         });
     });

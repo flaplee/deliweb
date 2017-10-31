@@ -38,8 +38,9 @@ create delicloud.js for js_sdk api
         'app.organization.create', //内部使用，进入创建组织
         'app.config.init', //内部使用，进入开始使用
         'app.method.checkJsApis',
-        'app.user.get' //获取用户信息
-        
+        'app.user.get', //获取用户信息
+        'app.organization.select', //选择组织
+        'app.method.transit' //内部使用，进入开始使用,初始化配置
     ];
     var JSSDK_VERSION = '0.0.1';
     var ua = win.navigator.userAgent;
@@ -412,9 +413,9 @@ create delicloud.js for js_sdk api
                         msg: '成功'
                     });
                 });
-                WebViewJavascriptBridge.callHandler(method, p);
+                WebViewJavascriptBridge.callHandler(method, p, callbackSuccess);
             } else {
-                WebViewJavascriptBridge.callHandler(method, p, callback);
+                WebViewJavascriptBridge.callHandler(method, p, callbackSuccess);
             }
         }
     }

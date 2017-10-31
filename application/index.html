@@ -12,108 +12,78 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <script src="./js/mobile.js"></script>
-		<title>设备列表</title>
+		<title>应用详情</title>
+    <link rel="stylesheet" type="text/css" href="./css/swipers.min.css">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
 	</head>
 	<body>
 		<!--页面框架-->
     <div id="page">
       <div class="header">
-        <div class="title">设备列表</div>
+        <div class="title">应用详情</div>
         <a class="back"> </a>
         <a class="leftMenuBtn"></a>
         <a class="rightMenuBtn"></a>
       </div>
       <div class="content">
-        <div class="appcenter">
-          <div id="appcenter-container" class="iosScrollFix">
-            <a class="project-item" href="http://192.168.0.104:3002">
-              <div class="project-icon"><img src="./images/device-base.png" /></div>
-              <div class="project-info">
-                <div class="project-title">得力智能考勤机3780</div>
-                <div class="project-content">支持指纹、人脸、wifi、gps、蓝牙、二维码等多种方式考勤，可以自动发送考勤提醒，统计考勤数据</div>
-                <div class="project-category">类别：<span class="project-category-name">人事管理</span></div>
-              </div>
-            </a>
-            <a class="project-item" href="http://192.168.0.104:3002">
-              <div class="project-icon"><img src="./images/device-base.png" /></div>
-              <div class="project-info">
-                <div class="project-title">得力智能考勤机3781</div>
-                <div class="project-content">支持指纹、人脸、wifi、gps、蓝牙、二维码等多种</div>
-                <div class="project-category">类别：<span class="project-category-name">人事管理</span></div>
-              </div>
-            </a>
-            <!-- <a class="project-item" href="http://192.168.0.104:3002">
-              <div class="project-icon"><img src="./images/app.png" /></div>
-              <div class="project-info">
-                <div class="project-title">智能会议</div>
-                <div class="project-content">
-                  可以查看正在开的会议屏幕，可以选择重要屏幕内容截屏并保存，可以管理PPT控制笔使用状态，可以控制会议是否公开
-                </div>
-                <div class="project-category">类别：<span class="project-category-name">会议</span></div>
-              </div>
-            </a>
-            <a class="project-item" href="http://192.168.0.104:3002">
-              <div class="project-icon"><img src="./images/app.png" /></div>
-              <div class="project-info">
-                <div class="project-title">通知公告</div>
-                <div class="project-content">
-                  给团队所有人发送通知，在团队成员不主动取消展示的情况下长期展示
-                </div>
-                <div class="project-category">类别：<span class="project-category-name">行政</span></div>
-              </div>
-            </a>
-            <a class="project-item" href="http://192.168.0.104:3002">
-              <div class="project-icon"><img src="./images/app.png" /></div>
-              <div class="project-info">
-                <div class="project-title">申请审批</div>
-                <div class="project-content">
-                  企业物品使用申请，办公用品采购申请，财务报销申请，离职申请、办公场所占用申请
-                </div>
-                <div class="project-category">类别：<span class="project-category-name">行政</span></div>
-              </div>
-            </a>
-            <a class="project-item" href="http://192.168.0.104:3002">
-              <div class="project-icon"><img src="./images/app.png" /></div>
-              <div class="project-info">
-                <div class="project-title">工作汇报</div>
-                <div class="project-content">
-                  查看、撰写日报、周报、月报、工作总结等
-                </div>
-                <div class="project-category">类别：<span class="project-category-name">行政</span></div>
-              </div>
-            </a>
-            <a class="project-item" href="http://192.168.0.104:3002">
-              <div class="project-icon"><img src="./images/app.png" /></div>
-              <div class="project-info">
-                <div class="project-title">任务管理</div>
-                <div class="project-content">
-                  创建、分派任务；任务完成情况反馈
-                </div>
-                <div class="project-category">类别：<span class="project-category-name">效率</span></div>
-              </div>
-            </a>
-            <a class="project-item" href="http://192.168.0.104:3002">
-              <div class="project-icon"><img src="./images/app.png" /></div>
-              <div class="project-info">
-                <div class="project-title">工作汇报</div>
-                <div class="project-content">
-                  查看、撰写日报、周报、月报、工作总结等
-                </div>
-                <div class="project-category">类别：<span class="project-category-name">行政</span></div>
-              </div>
-            </a>
-            <a class="project-item" href="http://192.168.0.104:3002">
-              <div class="project-icon"><img src="./images/app.png" /></div>
-              <div class="project-info">
-                <div class="project-title">任务管理</div>
-                <div class="project-content">
-                  创建、分派任务；任务完成情况反馈
-                </div>
-                <div class="project-category">类别：<span class="project-category-name">效率</span></div>
-              </div>
-            </a> -->
+        <div class="appdetail">
+          <div class="appdetail-item">
+            <div class="appdetail-icon"><img src="" /></div>
+            <div class="appdetail-info">
+              <div class="appdetail-title"><!-- 通知公告 --></div>
+              <div class="appdetail-content"><!-- 给团队所有人发送通知，在团队成员不主动取消展示的情况下长期展示 --></div>
+              <div class="appdetail-category"><!-- <span class="appdetail-category-name">人事管理</span><span class="appdetail-category-name">团队可用</span><span class="appdetail-category-name">个人可用</span> --></div>
+            </div>
           </div>
+          <div class="appdetail-banner">
+            <div class="appdetail-device swiper-container">
+              <div class="appdetail-device-inner swiper-wrapper">
+                  <!-- <div class="swiper-slide" style="background-image:url(./images/device1.jpg)"></div>
+                  <div class="swiper-slide" style="background-image:url(./images/device2.jpg)"></div>
+                  <div class="swiper-slide" style="background-image:url(./images/device3.jpg)"></div>
+                  <div class="swiper-slide" style="background-image:url(./images/device1.jpg)"></div>
+                  <div class="swiper-slide" style="background-image:url(./images/device2.jpg)"></div> -->
+              </div>
+            </div>
+          </div>
+          <div class="appdetail-introduce">
+            <h2 class="introduce-title">应用介绍</h2>
+            <div class="introduce-content">
+              <p class="content-inner"><!-- 智能考勤管理系统是指一套管理公司的员工的上下班考勤记录等相关情况的管理系统。是考勤软件与考勤硬件结合的产品，一般为HR部门使用，掌握并管理企智能考勤管理系统是指一套管理公司的员工的上下班考勤记录等相关情况的管理系统。是考勤软件与考勤硬件结合的产品，一般为HR部门使用，掌握并管理企智能考勤管理系统是指一套管理公司的员工的上下班考勤记录等相关情况的管理系统。是考勤软件与考勤硬件结合的产品，一般为HR部门使用，掌握并管理企智能考勤管理系统是指一套管理公司的员工的上下班考勤记录等相关情况的管理系统。是考勤软件与考勤硬件结合的产品，一般为HR部门使用，掌握并管理企。 --></p>
+              <a class="introduce-more" href="javascript:;">...更多</a>
+            </div>
+          </div>
+          <div class="appdetail-base">
+            <h2 class="base-title">支持的智能设备</h2>
+            <div class="base-device-list">
+              <!-- <a class="base-device">
+                <div class="device-icon">
+                  <img src="./images/logo.png" />
+                </div>
+                <div class="device-title">智能考勤机</div>
+              </a>
+              <a class="base-device">
+                <div class="device-icon">
+                  <img src="./images/logo.png" />
+                </div>
+                <div class="device-title">智能考勤机</div>
+              </a>
+              <a class="base-device">
+                <div class="device-icon">
+                  <img src="./images/logo.png" />
+                </div>
+                <div class="device-title">智能考勤机</div>
+              </a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navmenu navmenu-app">
+        <div class="btns">
+          <!-- <a class="btn-added" href="javascript:;">已添加</a> -->
+          <a class="btn-add" href="javascript:;">添加</a>
+          <!-- <a class="btn-related" href="javascript:;">联系管理员添加</a> -->
+          <!-- <a class="btn-switch" href="javascript:;">切换至团队组织添加(是管理员，未添加)</a> -->
         </div>
       </div>
     </div>
@@ -121,8 +91,8 @@
     <div id="dialog">
       <div>
         <div class="content"></div>
-        <div class="btns"><a class="no" href="http://192.168.0.104:3002">取消</a><a class="yes" href="http://192.168.0.104:3002">推荐开通</a></div>
-        <a class="close" href="http://192.168.0.104:3002"></a>
+        <div class="btns"><a class="no" href="javascript:;">取消</a><a class="yes" href="javascript:;">选择组织</a></div>
+        <a class="close" href="javascript:;"></a>
       </div>
     </div>
     <!--用于展示等待提示-->
@@ -131,7 +101,8 @@
     </div>
     <!--底部提示-->
     <div id="hint"><div class="text">_</div></div>
-    <script src="./js/sea.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/delicloud.js?v=001"></script>
+    <script src="./js/sea.js?v=001"></script>
+    <script src="./js/index.js?v=001"></script>
     </body>
 </html>

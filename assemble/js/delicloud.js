@@ -183,7 +183,7 @@ create delicloud.js for js_sdk api
             });*/
             //组织桥接 控制中心
             var fn = function(bridge) {
-                alert("桥接 控制中心");
+                //alert("桥接 控制中心");
                 if (!bridge) {
                     return console.log('bridge初始化失败')
                 }
@@ -322,10 +322,10 @@ create delicloud.js for js_sdk api
             //初始化主流程
             if (deli.ios) {
                 console.log('开始监听WebViewJavascriptBridgeReady事件');
-                alert("test1");
+                //alert("test1");
                 document.addEventListener('WebViewJavascriptBridgeReady', function() {
-                    alert("test2");
-                    alert(JSON.stringify(WebViewJavascriptBridge));
+                    //alert("test2");
+                    //alert(JSON.stringify(WebViewJavascriptBridge));
                     if (typeof WebViewJavascriptBridge === 'undefined') {
                         return console.log('WebViewJavascriptBridgeReady 未定义');
                     }

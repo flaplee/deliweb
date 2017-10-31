@@ -58,7 +58,7 @@ input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{box-sha
 #dialog > div > .content {font-size: 16px; line-height: 1.5; white-space: pre-wrap; text-align: justify;}
 #dialog > div > .btns {text-align: center; margin-bottom: 20px; display: none;}
 #dialog > div > .btns > a {font-size:14px;display: inline-block; border-radius: 4px;width: 78px;height: 32px;line-height: 30px;margin: 0 15px; vertical-align: top; border-width: 1px; border-style: solid;}
-#dialog > div > .btns > a.yes {color: white; background-color: #de0347; border-color: #de0347;}
+#dialog > div > .btns > a.yes {color: white; background-color: #00d8d6; border-color: #00d8d6;}
 #dialog > div > .btns > a.no {color: #3E3E3E; background-color: white; border-color: #BABABA;}
 #dialog > div > .close {position: absolute; right: 5px; top: 5px; width: 14px; height: 14px;background-image:url(../images/close.png);;background-size: 100% 100%;background-repeat: no-repeat;}
 #dialog > div.alert > .content {margin: 26px 20px 20px 16px;}
@@ -116,13 +116,13 @@ input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{box-sha
 
 /* appdetail */
 #page > .content > .appdetail {overflow-y: auto; background-color: white; border-top: none;}
-#page > .content > .appdetail .appdetail-item{display: block;width: 100%;height:82px;box-shadow: 0 0 2px #979797;overflow: hidden;}
-#page > .content > .appdetail .appdetail-item .appdetail-icon{float: left;width: 60px;text-align: center;margin: 25px 0;}
-#page > .content > .appdetail .appdetail-item .appdetail-icon img{width: 30px;height: 30px;}
-#page > .content > .appdetail .appdetail-item .appdetail-info{float: left;width: 260px;font-size: 12px;color: #999;margin-top: 10px;}
-#page > .content > .appdetail .appdetail-item .appdetail-info .appdetail-title{font-size: 14px;color:#333;font-weight: bold;}
-#page > .content > .appdetail .appdetail-item .appdetail-info .appdetail-content{font-size: 12px; height: 24px; line-height: 12px; color: #999; overflow: hidden;margin: 4px 0 6px;}
-#page > .content > .appdetail .appdetail-item .appdetail-info .appdetail-category{color:#999;}
+#page > .content > .appdetail .appdetail-item{display: block;width: 100%;-height:82px;border-bottom:1px solid #ccc;overflow: hidden;}
+#page > .content > .appdetail .appdetail-item .appdetail-icon{float: left;width: 50px;height:50px;text-align: center;margin: 18px 10px 18px 15px;background-color:#6abbfd;border-radius: 50%;}
+#page > .content > .appdetail .appdetail-item .appdetail-icon img{width: 26px; height: 26px; margin: 12px 0;}
+#page > .content > .appdetail .appdetail-item .appdetail-info{float: left;width: 260px;font-size: 12px;color: #999;}
+#page > .content > .appdetail .appdetail-item .appdetail-info .appdetail-title{font-size: 14px;color:#333;font-weight: bold;margin: 10px 0 8px;}
+#page > .content > .appdetail .appdetail-item .appdetail-info .appdetail-content{font-size: 12px; height: 28px; line-height: 14px; color: #666;margin-bottom: 5px;overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;}
+#page > .content > .appdetail .appdetail-item .appdetail-info .appdetail-category{color:#999;margin-bottom: 5px;}
 #page > .content > .appdetail .appdetail-item .appdetail-info .appdetail-category .appdetail-category-name{font-size:10px;color: #999; padding: 1px 8px; border: 1px solid #999; margin-right: 5px; border-radius: 10px;display: inline-block;}
 #page > .content > .appdetail .appdetail-banner{margin:5px auto;width:100%;}
 #page > .content > .appdetail .appdetail-banner .appdetail-device{margin-left: 15px;padding: 8px 0;}
@@ -143,12 +143,12 @@ input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{box-sha
 #page > .content > .appdetail .appdetail-base div.base-device-list a.base-device .device-icon{float: left;width: 38px;height: 38px;border-radius: 50%;-background-color: #ccc;border: 1px solid #ccc;display: block;}
 #page > .content > .appdetail .appdetail-base div.base-device-list a.base-device .device-icon img{width: 24px; height: 18px; display: inline-block; margin: 9px 6px; text-align: center;}
 #page > .content > .appdetail .appdetail-base div.base-device-list a.base-device .device-title{float: left;height:38px;line-height: 38px;margin-left: 10px;font-size: 14px;color: #333;display: block;}
-#page > .navmenu .btns{width: 294px; height: 40px;line-height: 40px; margin: 5px auto;}
+#page > .navmenu .btns{width: 100%; height: 40px;line-height: 40px; margin: 5px 15px;}
 #page > .navmenu.navmenu-app{bottom: 0;}
-#page > .navmenu.navmenu-app .btns a.btn-add,#page > .navmenu .btns a.btn-added,#page > .navmenu .btns a.btn-switch,#page > .navmenu .btns a.btn-related{font-weight: 500;width: 294px;height: 40px;line-height: 40px;color: #fff;text-align:center;display: inline-block;background-color:#de0347;border-radius:4px;-background-image:url(../images/btn-add.png);-background-size:cover;-background-repeat:no-repeat;}
+#page > .navmenu.navmenu-app .btns a.btn-add,#page > .navmenu .btns a.btn-added,#page > .navmenu .btns a.btn-switch,#page > .navmenu .btns a.btn-related{font-weight: 500;width: 100%;height: 40px;line-height: 40px;color: #fff;text-align:center;display: inline-block;background-color:#00d8d6;border-radius:4px;-background-image:url(../images/btn-add.png);-background-size:cover;-background-repeat:no-repeat;border-radius: 30px;font-weight: bold;}
 #page > .navmenu.navmenu-app .btns a.btn-add,#page > .navmenu .btns a.btn-added,#page > .navmenu .btns a.btn-switch,#page > .navmenu .btns a.btn-related{display: none;}
 #page > .navmenu.navmenu-app .btns a.btn-added{background-color: #eaeaea;color: #ccc;}
-#page > .navmenu.navmenu-app .btns a.btn-switch,#page > .navmenu .btns a.btn-related{background-color: #fff;color: #de0347;border:1px solid #de0347;}
+#page > .navmenu.navmenu-app .btns a.btn-switch,#page > .navmenu .btns a.btn-related{background-color: #fff;color: #00d8d6;border:1px solid #00d8d6;}
 
 /* equdetail */
 #page > .content > .equdetail{overflow-y: auto; background-color: white; border-top: none;}
@@ -160,7 +160,7 @@ input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{box-sha
 #page > .content > .equdetail .equdetail-introduce{padding: 0 13px;border-bottom: 1px solid #ccc;margin-bottom: 13px;position: relative;}
 #page > .content > .equdetail .equdetail-introduce h2.introduce-title{font-size: 14px;font-weight: normal;color: #333;margin-bottom: 5px;}
 #page > .content > .equdetail .equdetail-introduce .introduce-content{margin-bottom: 10px; font-size: 12px;color: #666;position: relative;}
-#page > .content > .equdetail .equdetail-banner .swiper-pagination-bullet-active{background: #de0347;}
+#page > .content > .equdetail .equdetail-banner .swiper-pagination-bullet-active{background: #00d8d6;}
 #page > .content > .equdetail .equdetail-manu{padding: 0 13px;border-bottom: 1px solid #ccc;margin-bottom: 13px;position: relative;}
 #page > .content > .equdetail .equdetail-manu h2.manu-title{font-size: 12px;font-weight: bold;color: #666;margin-bottom: 5px;}
 #page > .content > .equdetail .equdetail-manu a.manu-device{width: 100%;height: 40px;margin-bottom: 5px;-webkit-tap-highlight-color:rgba(0,0,0,0.1);display: block;}
@@ -179,6 +179,6 @@ input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{box-sha
 #page > .content > .equdetail .equdetail-base a.equdetail-item .equdetail-info .equdetail-content{font-size: 12px; height: 24px; line-height: 12px; color: #666; overflow: hidden;margin: 4px 0 6px;}
 #page > .content > .equdetail .equdetail-base a.equdetail-item .equdetail-info .equdetail-category{color:#666;margin-bottom: 6px;}
 #page > .content > .equdetail .equdetail-base a.equdetail-item .equdetail-info .equdetail-category .equdetail-category-name{font-size:10px;color: #666; padding: 1px 8px; border: 1px solid #999; margin-right: 5px; border-radius: 10px;display: inline-block;}
-#page > .navmenu.navmenu-device{height: 64px;background-color: #fafafa;}
-#page > .navmenu.navmenu-device .btns{width: 294px; height: 40px; margin: 12px auto;position: relative;}
-#page > .navmenu.navmenu-device .btns a.btn-buy{font-weight: 500;width: 294px;height: 40px;line-height: 40px;color: #fff;text-align:center;display: inline-block;background-color:#de0347;border-radius:4px;-background-image:url(../images/btn-add.png);-background-size:cover;-background-repeat:no-repeat;}
+#page > .navmenu.navmenu-device{height: 64px;background-color: #fff;}
+#page > .navmenu.navmenu-device .btns{width: 100%; height: 40px; margin: 12px 15px;position: relative;}
+#page > .navmenu.navmenu-device .btns a.btn-buy{font-weight: 500;width: 100%;height: 40px;line-height: 40px;color: #fff;text-align:center;display: inline-block;background-color:#00d8d6;border-radius:4px;-background-image:url(../images/btn-add.png);-background-size:cover;-background-repeat:no-repeat;border-radius: 30px;font-weight: bold;}
