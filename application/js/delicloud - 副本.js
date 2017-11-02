@@ -38,8 +38,9 @@ create delicloud.js for js_sdk api
         'app.organization.create', //内部使用，进入创建组织
         'app.config.init', //内部使用，进入开始使用
         'app.method.checkJsApis',
-        'app.user.get' //获取用户信息
-        
+        'app.user.get', //获取用户信息
+        'app.organization.select', //选择组织
+        'app.method.transit' //内部使用，进入开始使用,初始化配置
     ];
     var JSSDK_VERSION = '0.0.1';
     var ua = win.navigator.userAgent;
@@ -197,8 +198,6 @@ create delicloud.js for js_sdk api
             };
             //已经完成初始化的情况
             if (deli.ios && win.WebViewJavascriptBridge) {
-                //防止ready延迟导致的问题
-                //init后，register的方法才能收到回调，重现方法：首次触发deli.ready延时
                 try {
                     WebViewJavascriptBridge.init(function(data, responseCallback) {
                         //客户端send
@@ -209,6 +208,8 @@ create delicloud.js for js_sdk api
                 }
                 return fn(WebViewJavascriptBridge);
             } else if (deli.android && win.WebViewJavascriptBridge) {
+                //防止ready延迟导致的问题
+                //init后，register的方法才能收到回调，重现方法：首次触发deli.ready延时
                 try {
                     WebViewJavascriptBridge.init(function(data, responseCallback) {
                         //客户端send
@@ -298,6 +299,7 @@ create delicloud.js for js_sdk api
         }
         //统一回调处理
         var callback = function(response) {
+            alert(JSON.stringify(response));
             console.log('统一响应：', response);
             var data = response || {};
             var code = data.code;
@@ -374,6 +376,12 @@ create delicloud.js for js_sdk api
                 } else {
                     failCallback && failCallback.call(null, result, code);
                 }
+            }else{
+                if(code === '0'){
+                    successCallback && successCallback.call(null, result);
+                }else{
+                    failCallback && failCallback.call(null, result, code);
+                }
             }
         };
         var watch = true; //是否为监听操作，如果是监听操作，后面要注册事件
@@ -382,7 +390,10 @@ create delicloud.js for js_sdk api
         //消息接入：android和iOS区分处理
         if (deli.android) {
             if (watch) {
+                alert("watch" + method);
                 WebViewJavascriptBridge.registerHandler(method, function(data, responseCallback) {
+                    alert('JS方法被调用:'+ JSON.stringify(data));
+                    responseCallback('js执行过了');
                     callback({
                         code: '0',
                         msg: '成功',
@@ -394,9 +405,11 @@ create delicloud.js for js_sdk api
                         msg: '成功'
                     });
                 });
-                WebViewJavascriptBridge.callHandler(method, p, callbackSuccess);
+                //WebViewJavascriptBridge.callHandler(method, p, callbackSuccess);
+                WebViewJavascriptBridge.callHandler(method, p, callback);
             } else {
-                WebViewJavascriptBridge.callHandler(method, p, callbackSuccess);
+                WebViewJavascriptBridge.callHandler(method, p, callback);
+                //WebViewJavascriptBridge.callHandler(method, p, callbackSuccess);
             }
         } else if (deli.ios) {
             if (watch) {
@@ -406,6 +419,8 @@ create delicloud.js for js_sdk api
                         msg: '成功',
                         result: data
                     });
+                    alert(callback);
+                    alert(responseCallback);
                     //回传给客户端，可选
                     responseCallback && responseCallback({
                         code: '0',

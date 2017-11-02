@@ -60,17 +60,18 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                     "dataType": "jsonp",
                     "jsonp": "callback",
                     success: function(res) {
-                        //alert(JSON.stringify(res));
+                        alert("success");
+                        alert(JSON.stringify(res));
                         //util.hideLoading();
                         //deli.common.notification.hidePreloader({}, function(data) {}, function(resp) {});
                         util.hint('应用添加成功~');
                         if(res.code == 0){
                             var data = res.data;
-                             deli.app.config.init({
-                                 "id":data.id,
-                                 "organizationId":data.orgid,
-                                 "name":data.name,
-                                 "organizationName":data.name
+                            deli.app.config.init({
+                                "id":data.id,
+                                "organizationId":data.orgid,
+                                "name":data.name,
+                                "organizationName":data.name
                             }, function(data) {}, function(resp) {});
                             deli.app.method.transit({
                                 "id":"355373255801962497",
@@ -81,33 +82,25 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                         }else{
                             util.hint(res.msg);
                         }
+                    },
+                    error:function(res){
+                        if(res.readyState == 4 && res.status == 200){
+                            util.hint(JSON.parse(res.responseText).msg);
+                        }
                     }
                 });
             };
             $btnAdd.on('click', function() {
                 util.confirm('请为应用添加组织', function(sure) {
                     if (sure) {
-                        util.closeDialog();
                         deli.app.organization.select({
                             'type':'group'
                         }, function(data) {
-                            //alert(JSON.stringify(data));
-                            sentAppBind(userid, orgid, appid, token);
-                            /*deli.app.config.init({
-                                 "id":"355373255801962497",
-                                 "organizationId":"355671868335718400",
-                                 "name":"智能考勤",
-                                 "organizationName":"得力个人团队"
-                            }, function(data) {}, function(resp) {});
-                            deli.app.method.transit({
-                                 "id":"355373255801962497",
-                                 "organizationId":"355671868335718400",
-                                 "name":"智能考勤",
-                                 "organizationName":"得力个人团队"
-                            }, function(data) {}, function(resp) {});*/
-                            //deli.common.notification.showPreloader({}, function(data) {}, function(resp) {});
+                            alert(data.id);
+                            var org_id = data.id;
+                            sentAppBind(userid, org_id, appid, token);
                         }, function(resp) {});
-                    }
+                    };
                 });
             });
 
