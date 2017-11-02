@@ -26,47 +26,14 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                 $listRecord = $page.find('#finger-index-list .finger-record-list-inner'),
                 $listIndexItem = $listRecord.find('.kq-list-item'),
                 $listRecordItem = $listIndexItem.find('.kq-list-item'),
+                $listIndexBtn = $page.find('#finger-btm-btn .kq-flexbox-item a.kq-button-list'),
+                $listRecordBtn = $page.find('#finger-btm-btn .kq-flexbox-item a.kq-button-record'),
                 $loading = $page.find("#loading"),
                 $addUser = $page.find('#add-user');
-            $addUser.on('click',function(){
-                deli.app.user.select({
-                    "id":"355671868335718400",
-                    "name": "可选人员",
-                    "mode": "multi", //多选
-                    "rootDeptId": "355671868335718401", //设置可选顶级部门的Id
-                    "max": 200, //选择人数限制
-                    "userIds": ["355672617635545088", "362618666346348544"],
-                    //已选的用户
-                    "disabledUserIds": ["355672596013907968", "360009358211284992"]
-                }, function(data) {
-                    var res = JSON.parse(data);
-                    if(res.code == 0){
-                        getAdd(res.data);
-                    }
-                }, function(resp) {
-                    console.log("resp",data);
-                });
-                /*var data = {
-                    "users":[{
-                        "avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508327196283&di=85b33e8e857ce30f5172018f125204f1&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2f35b6f4c81630e924b999f36b.jpg",
-                        "name": "石头",
-                        "user_id": "355671868335718401",
-                        "empno": "1234567890"
-                    },
-                    {
-                        "avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508327196283&di=85b33e8e857ce30f5172018f125204f1&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2f35b6f4c81630e924b999f36b.jpg",
-                        "name": "石头2",
-                        "user_id": "355671868335718402",
-                        "empno": "1234567891"
-                    }]
-                };*/
-                //getAdd(data);
-            });
-
             //获取指纹列表  ///device/kq/users
             var getUsers = function() {
                 $.ajax({
-                    url: '/cloudapp/kq/users',
+                    url: '/json/users.json',// /cloudapp/kq/users
                     type: "GET",
                     timeout: 1e3,
                     contentType:"application/json",
@@ -85,7 +52,7 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                               <div class="kq-list-content">\
                                 <div class="kq-list-info">\
                                   <a href="javascript:;"><img class="icon-active" src="./images/avatar.jpg"></a>\
-                                  <span>' + n.name + '</span>\
+                                  <span class="kq-list-info-name">' + n.name + '</span>\
                                 </div>\
                                 <div class="kq-list-text">\
                                     <div class="kq-list-status '+ d +'">'+ a +'</div>\
@@ -101,9 +68,9 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                         });
                         $listIndex.find('.kq-list-item .kq-list-btn a').on('click',function(e){
                             e.stopPropagation();
-                            var c = $(this), user_id = c.attr('data-user_id');
+                            var c = $(this), user_id = c.attr('data-user_id'),user_name = c.parent('.kq-list-btn').siblings('.kq-list-content').find('.kq-list-info .kq-list-info-name').text();
                             util.htmlDialog('\
-                                <div style="padding:10px;font-weight:bold;font-size:14px;text-align:center;">请“黄永刚“录入指纹</div>\
+                                <div style="padding:10px;font-weight:bold;font-size:14px;text-align:center;">请“'+ user_name  +'“录入指纹</div>\
                                 <div style="font-size: 12px; line-height: 18px; text-align: justify; width: 90px; height: 90px; margin: 10px 75px; text-align: center; display: block;" id="finger-status" class="finger-status-img"></div>\
                                 <div style="text-align:center;">\
                                     <a style="margin:10px;vertical-align:top;display:none;" class="" href="javascript:;" target="_blank">我知道了</a>\
@@ -114,11 +81,11 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                             '.replace(/   |  /g, ''), 'fingerBox');
                             getFinger(user_id);
                         });
-                        console.log("users", data);
+                        //console.log("users", data);
                     },
                     error: function() {}
                 });
-            }();
+            };
 
             //获取打卡数据
             var getRecord = function(){
@@ -142,7 +109,7 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                                   <div class="kq-list-content">\
                                     <div class="kq-list-info">\
                                       <a href="javascript:;"><img class="icon-active" src="./images/avatar.jpg"></a>\
-                                      <span>' + n.name + '</span>\
+                                      <span class="kq-list-info-name">' + n.name + '</span>\
                                     </div>\
                                     <div class="kq-list-text">\
                                         <div class="kq-list-status '+ d +'">'+ a +'</div>\
@@ -208,6 +175,52 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                     }
                 });
             };
+
+            // init
+            getUsers();
+            
+            $listIndexBtn.on('click',function(){
+                getUsers();
+            }); 
+
+            $listRecordBtn.on('click',function(){
+                getFinger();
+            });
+
+            $addUser.on('click',function(){
+                deli.app.user.select({
+                    "id":"355671868335718400",
+                    "name": "可选人员",
+                    "mode": "multi", //多选
+                    "rootDeptId": "355671868335718401", //设置可选顶级部门的Id
+                    "max": 200, //选择人数限制
+                    "userIds": ["355672617635545088", "362618666346348544"],
+                    //已选的用户
+                    "disabledUserIds": ["355672596013907968", "360009358211284992"]
+                }, function(data) {
+                    var res = JSON.parse(data);
+                    if(res.code == 0){
+                        getAdd(res.data);
+                    }
+                }, function(resp) {
+                    console.log("resp",data);
+                });
+                /*var data = {
+                    "users":[{
+                        "avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508327196283&di=85b33e8e857ce30f5172018f125204f1&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2f35b6f4c81630e924b999f36b.jpg",
+                        "name": "石头",
+                        "user_id": "355671868335718401",
+                        "empno": "1234567890"
+                    },
+                    {
+                        "avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508327196283&di=85b33e8e857ce30f5172018f125204f1&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2f35b6f4c81630e924b999f36b.jpg",
+                        "name": "石头2",
+                        "user_id": "355671868335718402",
+                        "empno": "1234567891"
+                    }]
+                };*/
+                //getAdd(data);
+            });
         },
         getQuery: function(param) {
             var url = window.location.href;

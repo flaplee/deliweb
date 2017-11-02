@@ -1,7 +1,7 @@
 {
     "code": 0,
     "errorMsg": "",
-    "data": [{
+    "obj": [{
         "user_id": "355669228033933312",
         "avatar": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508327196283&di=85b33e8e857ce30f5172018f125204f1&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2f35b6f4c81630e924b999f36b.jpg",
         "name": "张飞",
