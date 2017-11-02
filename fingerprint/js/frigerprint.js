@@ -71,7 +71,7 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                             var c = $(this), user_id = c.attr('data-user_id'),user_name = c.parent('.kq-list-btn').siblings('.kq-list-content').find('.kq-list-info .kq-list-info-name').text();
                             util.htmlDialog('\
                                 <div style="padding:10px;font-weight:bold;font-size:14px;text-align:center;">请“'+ user_name  +'“录入指纹</div>\
-                                <div style="font-size: 12px; line-height: 18px; text-align: justify; width: 90px; height: 90px; margin: 10px 75px; text-align: center; display: block;" id="finger-status" class="finger-status-img"></div>\
+                                <div style="font-size: 12px; line-height: 18px; text-align: justify; width: 90px; height: 90px; margin: 10px 75px; text-align: center; display: block;" id="finger-status" class="finger-status finger-status-img"></div>\
                                 <div style="text-align:center;">\
                                     <a style="margin:10px;vertical-align:top;display:none;" class="" href="javascript:;" target="_blank">我知道了</a>\
                                     <a style="margin:10px;vertical-align:top;display:none;" class="" href="javascript:;" target="_blank">取消</a>\

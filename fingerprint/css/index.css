@@ -1119,8 +1119,19 @@ a {
 #dialog > div.switchGroup #switch #switchGroup .icon-team{width:21px;height:14px;margin-right: 4px;background-image:url(../images/icon/team.png);}
 #dialog > div.switchGroup #switch #switchGroup .icon-user{width:12px;height:14px;margin-left: 4px;margin-right: 9px;background-image:url(../images/icon/user.png);}
 
-.fingerBox{height: 200px;}
-.fingerBox .close{-display: none;}
-.fingerBox .finger-status-img,.fingerBox .finger-status-img1,.fingerBox .finger-status-img2{background-image:url(../images/finger1.png);background-repeat:no-repeat;background-size:100% 100%;display: inline-block;}
-.fingerBox .finger-status-img1{background-image:url(../images/finger2.png);}
-.fingerBox .finger-status-img2{background-image:url(../images/finger3.png);}
+#dialog .fingerBox{width: 275px; height: 264px;}
+#dialog .fingerBox .content{width: 275px; height: 264px;}
+#dialog .fingerBox .content .finger-text{padding:10px;font-weight:bold;font-size:14px;text-align:center;}
+#dialog .fingerBox .content .finger-btn{text-align: center;}
+#dialog .fingerBox .content .finger-btn a{margin:10px;vertical-align:top;display:none;}
+#dialog .fingerBox .content .finger-btn a.btn-large-know,#dialog .fingerBox .finger-btn a.btn-large-cancel{width: 210px;height: 35px;line-height: 35px;border:1px solid #ccc;border-radius: 4px;}
+#dialog .fingerBox .content .finger-btn a.btn-small-cancel,#dialog .fingerBox .finger-btn a.btn-small-retry{width: 90px;height: 35px;line-height: 35px;border:1px solid #ccc;border-radius: 4px;}
+#dialog .fingerBox .content .finger-btn a.btn-large-know{color:#666666;border-color:#666666;}
+#dialog .fingerBox .content .finger-btn a.btn-large-cancel{color:#666666;border-color:#666666;}
+#dialog .fingerBox .content .finger-btn a.btn-small-cancel{color:#477fff;border-color:#477fff;}
+#dialog .fingerBox .content .finger-btn a.btn-small-retry{color:#de0347;border-color:#de0347;}
+#dialog div.fingerBox .close{display: none;}
+#dialog .fingerBox .content .finger-status{font-size: 12px; line-height: 18px; text-align: justify; width: 90px; height: 90px;margin: 10px auto;text-align: center; display: block;}
+#dialog .fingerBox .content #finger-status.finger-status-img,#dialog .fingerBox .content .finger-status.finger-status-img1,#dialog .fingerBox .content .finger-status.finger-status-img2{background-image:url(../images/finger1.png);background-repeat:no-repeat;background-size:100% 100%;}
+#dialog .fingerBox .content #finger-status.finger-status-img1{background-image:url(../images/finger2.png);}
+#dialog .fingerBox .content #finger-status.finger-status-img2{background-image:url(../images/finger3.png);}

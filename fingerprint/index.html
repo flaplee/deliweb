@@ -148,46 +148,32 @@
   <!-- menu end-->
 </div>
 <!-- dialog begin -->
-  <div id="dialog">
+  <!-- <div id="dialog">
     <div>
       <div class="content"></div>
       <div class="btns"><a class="no" href="javascript:;">取消</a><a class="yes" href="javascript:;">推荐开通</a></div>
       <a class="close" href="javascript:;"></a>
     </div>
-  </div>
-<style>
-  #dialog .fingerBox{width: 275px; height: 264px;}
-  #dialog .fingerBox .content{width: 275px; height: 264px;}
-  #dialog .fingerBox .finger-status{font-size: 12px; line-height: 18px; text-align: justify; width: 90px; height: 90px;margin: 10px auto;text-align: center; display: block;}
-  #dialog .fingerBox .finger-text{padding:10px;font-weight:bold;font-size:14px;text-align:center;}
-  #dialog .fingerBox .finger-btn{text-align: center;}
-  #dialog .fingerBox .finger-btn a{margin:10px;vertical-align:top;display:none;}
-  #dialog .fingerBox .finger-btn a.btn-large-know,#dialog .fingerBox .finger-btn a.btn-large-cancel{}
-  #dialog .fingerBox .finger-btn a.btn-small-cancel,#dialog .fingerBox .finger-btn a.btn-small-retry{}
-  #dialog .fingerBox .close{}
-</style>
-
-<div id="dialog" style="visibility: visible;">
-  <div class="fingerBox">
-    <div class="content">
-      <div id="finger-status" class="finger-status finger-status-img finger-status-img2"></div>
-      <div class="finger-text">请“张飞“录入指纹</div>
-      <div class="finger-btn">
-        <a class="btn-large-know" href="javascript:;" target="_blank">我知道了</a>
-        <a class="btn-large-cancel" href="javascript:;" target="_blank">取消</a>
-        <a class="btn-small-cancel timeout" href="javascript:;" target="_blank">取消</a>
-        <a class="btn-small-retry timeout" href="javascript:;" target="_blank">重试</a>
+  </div> -->
+  <div id="dialog" style="visibility: visible;">
+    <div class="fingerBox">
+      <div class="content">
+        <div id="finger-status" class="finger-status finger-status-img finger-status-img2"></div>
+        <div class="finger-text">请“张飞“录入指纹</div>
+        <div class="finger-btn">
+          <a class="btn-large-know" href="javascript:;" target="_blank">我知道了</a>
+          <a class="btn-large-cancel" href="javascript:;" target="_blank">取消</a>
+          <a class="btn-small-cancel timeout" href="javascript:;" target="_blank">取消</a>
+          <a class="btn-small-retry timeout" href="javascript:;" target="_blank">重试</a>
+        </div>
       </div>
+      <div class="btns">
+        <a class="no" href="javascript:;">取消</a>
+        <a class="yes" href="javascript:;">重试</a>
+      </div>
+      <a class="close" href="javascript:;"></a>
     </div>
-    <div class="btns">
-      <a class="no" href="javascript:;">取消</a>
-      <a class="yes" href="javascript:;">重试</a>
-    </div>
-    <a class="close" href="javascript:;"></a>
   </div>
-</div>
-
-
 <!-- dialog end -->
 <script src="./js/delicloud.js"></script>
 <script src='./js/sea.js'></script>
