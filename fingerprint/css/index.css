@@ -1120,18 +1120,26 @@ a {
 #dialog > div.switchGroup #switch #switchGroup .icon-user{width:12px;height:14px;margin-left: 4px;margin-right: 9px;background-image:url(../images/icon/user.png);}
 
 #dialog .fingerBox{width: 275px; height: 264px;}
-#dialog .fingerBox .content{width: 275px; height: 264px;}
-#dialog .fingerBox .content .finger-text{padding:10px;font-weight:bold;font-size:14px;text-align:center;}
-#dialog .fingerBox .content .finger-btn{text-align: center;}
-#dialog .fingerBox .content .finger-btn a{margin:10px;vertical-align:top;display:none;}
-#dialog .fingerBox .content .finger-btn a.btn-large-know,#dialog .fingerBox .finger-btn a.btn-large-cancel{width: 210px;height: 35px;line-height: 35px;border:1px solid #ccc;border-radius: 4px;}
-#dialog .fingerBox .content .finger-btn a.btn-small-cancel,#dialog .fingerBox .finger-btn a.btn-small-retry{width: 90px;height: 35px;line-height: 35px;border:1px solid #ccc;border-radius: 4px;}
-#dialog .fingerBox .content .finger-btn a.btn-large-know{color:#666666;border-color:#666666;}
-#dialog .fingerBox .content .finger-btn a.btn-large-cancel{color:#666666;border-color:#666666;}
-#dialog .fingerBox .content .finger-btn a.btn-small-cancel{color:#477fff;border-color:#477fff;}
-#dialog .fingerBox .content .finger-btn a.btn-small-retry{color:#de0347;border-color:#de0347;}
+#dialog .fingerBox .content{width: 218px; height: 264px; padding: 0px 28px;white-space: normal;}
+#dialog .fingerBox .content .finger-text{padding:0 10px;font-weight:bold;font-size:16px;text-align:center;}
+#dialog .fingerBox .content .finger-tips{text-align: center;font-size: 14px;margin: 5px 0;}
+#dialog .fingerBox .content .finger-tips.finger-tips-overtime{color: #de0347;}
+#dialog .fingerBox .content .finger-tips.finger-tips-doing,#dialog .fingerBox .content .finger-tips.finger-tips-success{color: #477fff;}
+#dialog .fingerBox .content .finger-tips span{background-image:url(../images/right.png.png);background-repeat:no-repeat;background-size:100% 100%;display: inline-block;vertical-align: middle;margin-right: 5px;}
+#dialog .fingerBox .content .finger-tips span.icon-entry-overtime{background-image:url(../images/warn.png);width: 16px;height: 16px;}
+#dialog .fingerBox .content .finger-tips span.icon-entry-success{background-image:url(../images/right.png);width: 16px;height: 16px;}
+#dialog .fingerBox .content .status-timeout{display: none;}
+#dialog .fingerBox .content .status-success{display: none;}
+#dialog .fingerBox .content .status-doing{display: block;}
+#dialog .fingerBox .content .finger-btn{text-align: center;white-space: normal;}
+#dialog .fingerBox .content .finger-btn a{margin: 10px auto;vertical-align:top;float: left;display:none;}
+#dialog .fingerBox .content .finger-btn a.btn-large-know,#dialog .fingerBox .finger-btn a.btn-large-cancel{width: 210px;height: 35px;line-height: 35px;border:1px solid #ccc;border-radius: 4px;display: inline-block;}
+#dialog .fingerBox .content .finger-btn a.btn-small-cancel,#dialog .fingerBox .finger-btn a.btn-small-retry{width: 90px;height: 35px;line-height: 35px;border:1px solid #ccc;border-radius: 4px;display: inline-block;}
+#dialog .fingerBox .content .finger-btn a.btn-large-know{color:#477fff;border-color:#477fff;display: block;}
+#dialog .fingerBox .content .finger-btn a.btn-large-cancel,#dialog .fingerBox .content .finger-btn a.btn-small-cancel{color:#666666;border-color:#666666;}
+#dialog .fingerBox .content .finger-btn a.btn-small-retry{color:#de0347;border-color:#de0347;float: right;}
 #dialog div.fingerBox .close{display: none;}
-#dialog .fingerBox .content .finger-status{font-size: 12px; line-height: 18px; text-align: justify; width: 90px; height: 90px;margin: 10px auto;text-align: center; display: block;}
+#dialog .fingerBox .content .finger-status{font-size: 12px; line-height: 18px; text-align: justify; width: 90px; height: 90px; margin: 30px auto 20px; text-align: center; display: block;}
 #dialog .fingerBox .content #finger-status.finger-status-img,#dialog .fingerBox .content .finger-status.finger-status-img1,#dialog .fingerBox .content .finger-status.finger-status-img2{background-image:url(../images/finger1.png);background-repeat:no-repeat;background-size:100% 100%;}
 #dialog .fingerBox .content #finger-status.finger-status-img1{background-image:url(../images/finger2.png);}
 #dialog .fingerBox .content #finger-status.finger-status-img2{background-image:url(../images/finger3.png);}

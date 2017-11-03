@@ -56,7 +56,7 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                                 </div>\
                                 <div class="kq-list-text">\
                                     <div class="kq-list-status '+ d +'">'+ a +'</div>\
-                                    <span>员工编号:' + n.finger_count + '</span>\
+                                    <span>员工编号:' + n.empno + '</span>\
                                 </div>\
                               </div>\
                               <div class="kq-list-btn">\
@@ -70,22 +70,67 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                             e.stopPropagation();
                             var c = $(this), user_id = c.attr('data-user_id'),user_name = c.parent('.kq-list-btn').siblings('.kq-list-content').find('.kq-list-info .kq-list-info-name').text();
                             util.htmlDialog('\
-                                <div style="padding:10px;font-weight:bold;font-size:14px;text-align:center;">请“'+ user_name  +'“录入指纹</div>\
-                                <div style="font-size: 12px; line-height: 18px; text-align: justify; width: 90px; height: 90px; margin: 10px 75px; text-align: center; display: block;" id="finger-status" class="finger-status finger-status-img"></div>\
-                                <div style="text-align:center;">\
-                                    <a style="margin:10px;vertical-align:top;display:none;" class="" href="javascript:;" target="_blank">我知道了</a>\
-                                    <a style="margin:10px;vertical-align:top;display:none;" class="" href="javascript:;" target="_blank">取消</a>\
-                                    <a style="margin:10px;vertical-align:top;display:none;" class="timeout" href="javascript:;" target="_blank">取消</a>\
-                                    <a style="margin:10px;vertical-align:top;display:none;;" class="timeout" href="javascript:;" target="_blank">重试</a>\
+                                <div id="finger-status" class="finger-status finger-status-img"></div>\
+                                <div class="finger-text">请" '+ user_name  +' "录入指纹</div>\
+                                <div class="finger-tips finger-tips-overtime status-timeout"><span class="icon-entry-overtime"></span>录入超时！</div>\
+                                <div class="finger-tips finger-tips-success status-success"><span class="icon-entry-success"></span>录入成功！</div>\
+                                <div class="finger-tips finger-tips-doing status-doing">（需验证3次）进行中...</div>\
+                                <div class="finger-btn clearfix">\
+                                  <a class="btn-large-know status-success" href="javascript:;" target="_blank">我知道了</a>\
+                                  <a class="btn-large-cancel status-doing" href="javascript:;" target="_blank">取消</a>\
+                                  <a class="btn-small-cancel status-timeout" href="javascript:;" target="_blank">取消</a>\
+                                  <a class="btn-small-retry status-timeout" href="javascript:;" target="_blank">重试</a>\
                                 </div>\
                             '.replace(/   |  /g, ''), 'fingerBox');
-                            getFinger(user_id);
+                            var $fingerStatus = $('#dialog .fingerBox .content'),
+                                $btnLargeKnow =  $fingerStatus.find('.btn-large-know'),
+                                $btnLargeCancel =  $fingerStatus.find('.btn-large-cancel'),
+                                $btnSmallCancel =  $fingerStatus.find('.btn-small-cancel'),
+                                $btnSmallRetry =  $fingerStatus.find('.btn-small-retry');
+                            $btnLargeKnow.on('click',function(){
+                                util.closeDialog();
+                            });
+                            $btnLargeCancel.on('click',function(){
+                                util.closeDialog();
+                            });
+                            $btnSmallCancel.on('click',function(){
+                                util.closeDialog();
+                            });
+                            $btnSmallRetry.on('click',function(){
+                                util.closeDialog();
+                            });
+                            setFingerStatus($fingerStatus,0);
+                            //getFinger(user_id);
                         });
                         //console.log("users", data);
                     },
                     error: function() {}
                 });
             };
+            
+            var setFingerStatus = function($dom, status){
+                switch(status){
+                    case 0:
+                        $dom.find('.status-doing').show();
+                        $dom.find('.status-timeout').hide();
+                        $dom.find('.status-success').hide();
+                        $dom.find('.finger-status').addClass('finger-status-img');
+                    break;
+                    case 1:
+                        $dom.find('.status-timeout').show();
+                        $dom.find('.status-doing').hide();
+                        $dom.find('.status-success').hide();
+                        $dom.find('.finger-status').addClass('finger-status-img2');
+                    break;
+                    case 2:
+                        $dom.find('.status-success').show();
+                        $dom.find('.status-timeout').hide();
+                        $dom.find('.status-doing').hide();
+                        $dom.find('.finger-status').addClass('finger-status-img2');
+                    break;
+                    default:;
+                }
+            }
 
             //获取打卡数据
             var getRecord = function(){
@@ -105,7 +150,7 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                                     a = (n.finger_status == 0) ? '未录入' : '已录入('+ n.finger_count +')',
                                     d = (n.finger_status == 0) ? 'kq-list-status-disabled' : '';
                                  //$listIndex.append($('<div class="kq-list-item"><div class="kq-list-content"><div>' + n.name + '</div><div>(' + n.finger_count + ')</div></div><div class="kq-list-btn"><a href="javascript:;" data-user_id="' + n.user_id + '"><button type="button" class="kq-button kq-button-md kq-button-white kq-button-light" kq-mode="small ' + w + '">' + a + '</button></a></div></div>'));
-                                $listIndex.append($('<div class="kq-list-item">\
+                                $listRecord.append($('<div class="kq-list-item">\
                                   <div class="kq-list-content">\
                                     <div class="kq-list-info">\
                                       <a href="javascript:;"><img class="icon-active" src="./images/avatar.jpg"></a>\
@@ -126,7 +171,7 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                         } else {
                             alert("网络错误，请重试");
                         }
-                        console.log("users", data);
+                        //console.log("users", data);
                     },
                     error: function() {}
                 });
@@ -141,8 +186,8 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                     dataType: "json",
                     data: JSON.stringify(data),
                     success: function(res) {
-                        console.log("add", res);
-                        if(res.code == 0){ 
+                        //console.log("add", res);
+                        if(res.code == 0){
                         }
                     },
                     error: function() {}
@@ -160,18 +205,18 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
                     success: function(res) {
                         console.log("finger", res);
                         if(res.obj == true){
-                            $('#finger-status').addClass('finger-status-img1');
+                            setFingerStatus($('#dialog .fingerBox .content'),0);
                         }else{
                             window.setTimeout(function(){
                                 getFinger(user_id);
-                            },60000);
+                            },10000);
                         }
                     },
                     error: function(res) {
                         $('#finger-status').addClass('finger-status-img2');
                         window.setTimeout(function(){
                             getFinger(user_id);
-                        },60000);
+                        },10000);
                     }
                 });
             };
@@ -180,11 +225,15 @@ seajs.use(['jquery', 'util'], function(jquery, util) {
             getUsers();
             
             $listIndexBtn.on('click',function(){
+                $listRecord.hide();
+                $listIndex.show();
                 getUsers();
             }); 
 
             $listRecordBtn.on('click',function(){
-                getFinger();
+                $listIndex.hide();
+                $listRecord.show();
+                getRecord();
             });
 
             $addUser.on('click',function(){

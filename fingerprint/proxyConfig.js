@@ -7,5 +7,5 @@ module.exports = [{
         root: './',
         index: 'index.html'
     },
-    port: 1994
+    port: 1993
 }];
