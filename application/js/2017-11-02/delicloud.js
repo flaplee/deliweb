@@ -300,7 +300,7 @@ create delicloud.js for js_sdk api
 
         //统一回调处理
         var callback = function(response) {
-            //alert("统一响应：" + JSON.stringify(response));
+            //alert("统一响应："+JSON.stringify(response));
             console.log('统一响应：', response);
             if (deli.ios) {
                 var data = response || {};
@@ -329,7 +329,11 @@ create delicloud.js for js_sdk api
         //消息接入：android和iOS区分处理
         if (deli.android) {
             if (watch) {
+                alert("111111")
                 WebViewJavascriptBridge.registerHandler(method, function(data, responseCallback) {
+                    alert(method);
+                    alert(data);
+                    alert(responseCallback);
                     callback({
                         code: '0',
                         msg: '成功',
@@ -350,7 +354,6 @@ create delicloud.js for js_sdk api
         } else if (deli.ios) {
             if (watch) {
                 WebViewJavascriptBridge.registerHandler(method, function(data, responseCallback) {
-                    //alert(responseCallback);
                     callback(data);
                     //回传给客户端，可选
                     responseCallback && responseCallback({
@@ -381,4 +384,5 @@ create delicloud.js for js_sdk api
             return deli;
         })
     }
+    console.log("deli", deli);
 }(this));

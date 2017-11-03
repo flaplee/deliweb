@@ -132,7 +132,7 @@ input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{box-sha
 #page > .content > .appdetail .appdetail-introduce{padding: 0 13px;border-bottom: 1px solid #ccc;margin-bottom: 13px;}
 #page > .content > .appdetail .appdetail-introduce h2.introduce-title{font-size: 14px;font-weight: bold;color: #333;margin-bottom: 5px;}
 #page > .content > .appdetail .appdetail-introduce .introduce-content{margin-bottom: 15px; font-size: 12px; -line-height: 14px; -height: 42px; color: #999999;position: relative;}
-#page > .content > .appdetail .appdetail-introduce .introduce-content p.content-inner{font-size:12px;text-indent: 24px;line-height:12px;height:36px;overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;}
+#page > .content > .appdetail .appdetail-introduce .introduce-content p.content-inner{font-size:12px;text-indent: 24px;line-height:12px;height:48px;overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;}
 #page > .content > .appdetail .appdetail-introduce .introduce-content p.content-inner.content-show{height:auto;-webkit-line-clamp: initial;}
 #page > .content > .appdetail .appdetail-introduce .introduce-more{font-size: 12px;width:36px;height: 12px; line-height: 12px; color: #477fff; position: absolute; right: 0; bottom: 0; background-color: #fff; display: inline-block;}
 #page > .content > .appdetail .appdetail-base{padding: 0 13px;border-bottom: 1px solid #ccc;}
