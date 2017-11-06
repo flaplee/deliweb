@@ -1,0 +1,24 @@
+app.user.select
+ios
+{
+	"msg":"成功",
+	"data":[
+		{
+			"name":"石头",
+			"employee_num":null,
+			"mobile":"12345678901",
+			"mobile_region":"86",
+			"status":0,
+			"is_department_admin":false,
+			"user_id":123456798,
+			"title":"",
+			"department_code":"123456789",
+			"department_id":"132456798",
+			"nickname":"石头",
+			"department":"得力团队",
+			"org_id":"132456798",
+			"organization":"得力团队"
+		}
+	],
+	"code":0
+}

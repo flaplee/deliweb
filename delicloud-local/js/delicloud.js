@@ -78,14 +78,14 @@ create delicloud.js for js_sdk api
             }
             //to do: 参数名待统一
             config = {
-                serviceId: obj.serviceId || -1,
+                appId: obj.appId || -1,
                 timestamp: obj.timestamp,
                 noncestr: obj.noncestr,
                 sign: obj.signature
                     /*jsApiList: obj.jsApiList*/
             };
-            if (obj.serviceId) {
-                config.serviceId = obj.serviceId;
+            if (obj.appId) {
+                config.appId = obj.appId;
             }
         },
         error: function(fn) {
