@@ -217,8 +217,7 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
             //接收指纹录入结果
             var setWebSocket = function(uid){
                 if(window.WebSocket){
-                    //var sock = new SockJS('/cloudapp/kq/user/'+ uid +'/finger');
-                    var sock = new SockJS("/cloudapp/kq/user/"+ uid +"/finger");
+                    var sock = new SockJS('/delicloudmock');
                     sock.onopen = function(){
                         sock.send(JSON.stringify({time:(new Date().getTime)}));
                     };
