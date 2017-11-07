@@ -1,7 +1,7 @@
 'use strict';
 module.exports = [{
 	// http://192.168.0.201:9001/  http://192.168.0.38:8080/
-    remote: 'http://192.168.0.131:8080/',
+    remote: 'http://192.168.0.202:9999/',
     local: {
         prefix: '/',
         root: './',

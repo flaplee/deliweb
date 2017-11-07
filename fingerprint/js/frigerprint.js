@@ -201,6 +201,7 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
                     data:JSON.stringify(data),
                     headers: {'Content-Type': 'application/json'},
                     success: function(res) {
+                        alert(JSON.stringify(res));
                         if(res.code ==0){
                             util.hint('添加员工成功');
                             util.hideLoading();

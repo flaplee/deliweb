@@ -40,6 +40,10 @@ td,th{padding:0}
 html{font-size:10px}
 body{font:1.6rem/1.25 PingFang SC, Heiti SC, Droid Sans, Microsoft YaHei UI,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:none}
 input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{box-shadow:inset 0 0 0 1000px #fff}
+.lazyload {opacity: 0 }
+.lazyload-show {opacity: 1 }
+body .lazyload-nobg {background: 0 0 }
+.lazyload-fadein {position: relative; z-index: 1; transition: opacity .3s linear; opacity: 1}
 .clean:after,.clean:before{content:" ";display:table}
 .clean:after{clear:both}
 .point-event-none{pointer-events:none}
@@ -125,16 +129,23 @@ input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{box-sha
 #page > .content > .appdetail .appdetail-item .appdetail-info .appdetail-category{color:#999;margin-bottom: 5px;}
 #page > .content > .appdetail .appdetail-item .appdetail-info .appdetail-category .appdetail-category-name{font-size:10px;color: #999; padding: 1px 8px; border: 1px solid #999; margin-right: 5px; border-radius: 10px;display: inline-block;}
 #page > .content > .appdetail .appdetail-banner{margin:5px auto;width:100%;}
-#page > .content > .appdetail .appdetail-banner .appdetail-device{margin-left: 15px;padding: 8px 0;}
-#page > .content > .appdetail .appdetail-banner .swiper-slide{width: 100px;height: 174px;background-size:100% 100%;background-repeat: no-repeat;border-radius: 3px;box-shadow: 0 0 8px silver;}
-#page > .content > .appdetail .appdetail-banner .swiper-slide > div{width: 100px;height: 174px;}
-#page > .content > .appdetail .appdetail-banner .swiper-slide > div img{width: 100px;height: 174px;border-radius: 6px;}
+#app_screenshot.scroll-x {overflow-x: scroll; overflow-y: hidden; white-space: nowrap; -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0) }
+#app_screenshot.scroll-x {border-bottom: 13px solid #fff; font-size: 0 }
+#app_screenshot.scroll-x .screenshot {margin-right: 7px }
+#app_screenshot.scroll-x .screenshot:first-child {margin-left: 13px; position: relative }
+#app_screenshot.scroll-x .screenshot:last-child {margin-right: 13px }
+#app_screenshot .screenshot {display: inline-block; border-radius: 1px; width: 131px; height: 232px; background: url('') center center no-repeat; background-color: #efeff0; background-size: 25px 25px; overflow: hidden }
+#app_screenshot .screenshot {position: relative }
+#app_screenshot .screenshot:before {content: ""; display: block; position: absolute; z-index: 2; top: 0; left: 0; border: 1px solid rgba(0,0,0,.15); border-radius: 3px; width: calc(300% - 2px); height: calc(300% - 2px); -webkit-transform: scale(0.3333); -webkit-transform-origin: 0 0; transform: scale(0.3333); transform-origin: 0 0 }
+#app_screenshot .screenshot img {border-radius: 1px }
+
 #page > .content > .appdetail .appdetail-introduce{padding: 0 13px;border-bottom: 1px solid #ccc;margin-bottom: 13px;}
 #page > .content > .appdetail .appdetail-introduce h2.introduce-title{font-size: 14px;font-weight: bold;color: #333;margin-bottom: 5px;}
 #page > .content > .appdetail .appdetail-introduce .introduce-content{margin-bottom: 15px; font-size: 12px; -line-height: 14px; -height: 42px; color: #999999;position: relative;}
-#page > .content > .appdetail .appdetail-introduce .introduce-content p.content-inner{font-size:12px;text-indent: 24px;line-height:12px;height:48px;overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;}
-#page > .content > .appdetail .appdetail-introduce .introduce-content p.content-inner.content-show{height:auto;-webkit-line-clamp: initial;}
-#page > .content > .appdetail .appdetail-introduce .introduce-more{font-size: 12px;width:36px;height: 12px; line-height: 12px; color: #477fff; position: absolute; right: 0; bottom: 0; background-color: #fff; display: inline-block;}
+#page > .content > .appdetail .appdetail-introduce .introduce-content p{white-space: pre-line; line-height: 1.4; margin: 9px 0 0; text-align: justify; font-size: 13px;}
+#page > .content > .appdetail .appdetail-introduce .introduce-more {position: absolute; line-height: 1.4; padding-left: 8px; background-image: linear-gradient(90deg,rgba(256,256,256,0),rgba(256,256,256,1) 20%,#fff 100%); right: 0; bottom: 0; color: #477fff; font-size: 13px; }
+
+
 #page > .content > .appdetail .appdetail-base{padding: 0 13px;border-bottom: 1px solid #ccc;}
 #page > .content > .appdetail .appdetail-base h2.base-title{font-size: 14px;font-weight: bold;color: #333;margin-bottom: 5px;}
 #page > .content > .appdetail .appdetail-base div.base-device-list{}

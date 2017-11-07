@@ -44,8 +44,23 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                 $btnAdded = $detailBtns.find('.btn-added'),
                 $btnSwitch = $detailBtns.find('.btn-switch'),
                 $btnRelated = $detailBtns.find('.btn-related');
-            $introduceMore.hide();
             var setInitBtn = function(){};
+            // test
+            /*setTimeout(function(){
+                deli.app.user.get({
+                    "user_id":"349944153787858944"
+                }, function(data) {
+                    alert(JSON.stringify(data));
+                }, function(resp) {});
+            });*/
+            // test chat
+            /*setTimeout(function(){
+                deli.app.user.chatOpen({
+                    "acc_id":"1d2c33e772ed56b76a6b4c47643bd88c"
+                }, function(data) {
+                    //alert(JSON.stringify(data));
+                }, function(resp) {});
+            });*/
             var sentAppBind = function(userid, orgid, appid, token){
                 $.ajax({
                     "type": "get",
@@ -125,8 +140,8 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                             }else{
                                 $introduceMore.on('click', function() {
                                     var c = $(this);
-                                    $introduceCont.find('p.content-inner').addClass('content-show');
-                                    c.hide();
+                                    $introduceCont.find('p.content-inner').css({ "overflow": "hidden", "height": "auto","white-space":"pre-wrap"});
+                                    $introduceCont.find('div.introduce-more').css({"display":"none"});
                                 });
                             }
                             $introduceCont.find('p.content-inner').html(data.description);
@@ -152,38 +167,31 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                             while(i <= 5){
                                 var item_shot = eval("screen_shot" + i),$targetHtml;
                                 if(item_shot && item_shot != ''){
-                                    //var screen_shot+(i + 1) = '<div class="swiper-slide" style="background-image:url('+ data.screen_shot[i] +')"></div>';
-                                    //eval("var set_" + i + "=" + i);
-                                    //var item = '<div class="swiper-slide" style="background-image:url('+ data.screen_shot1 +')"></div>';
                                     urls.push(item_shot);
-                                    $targetHtml = $('<div class="swiper-slide" style="background-image:url('+ item_shot +')"></div>');
-                                    $detailBannerInner.append($targetHtml);
                                 }
                                 i++;
                             }
-                            var swiper = new Swiper('.appdetail-device.swiper-container', {
-                                loop: false,
-                                pagination: '.swiper-pagination',
-                                slidesPerView: 3,
-                                paginationClickable: false,
-                                spaceBetween: 15, //30
-                                freeMode: false,
-                                onClick: function(swiper) {
-                                    var index = swiper.clickedIndex + 1;
-                                    var current = index ? index : 1;
-                                    deli.common.image.preview({
-                                        current: current,
-                                        urls: urls
-                                    }, function(data) {}, function(resp) {});
-                                },
-                                onInit: function(swiper) {},
-                                onSlideChangeEnd: function(swiper) {}
-                            });
+                            setScreenShot(urls);
                         } else {
                             util.hint(res.msg);
                         }
                     }
                 });
+            };
+
+            // 应用截图
+            function setScreenShot(urls){
+                var $app_screenshot = $('#app_screenshot');
+                var urlMap = urls.join(',').split(',').map(function(a, e) {
+                    $app_screenshot.append($('<div class="screenshot app_screenshot" data-index="'+ e +'"><img width="131" class="lazyload lazyload-fadein" data-src="'+ a +'" src="'+ a +'"></div>'));
+                });
+                $app_screenshot.on("click", ".app_screenshot", function() {
+                    var $dom = $(this), current = parseInt($dom.attr('data-index'));
+                    deli.common.image.preview({
+                        current: current,
+                        urls: urls
+                    }, function(data) {}, function(resp) {});
+                })
             };
 
             getInitData(appid);
