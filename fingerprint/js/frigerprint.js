@@ -190,7 +190,6 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
                 });
             };
 
-            
             //添加考情员工  //cloudapp/kq/user/add
             var getAdd = function(data) {
                 $.ajax({
@@ -201,7 +200,6 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
                     data:JSON.stringify(data),
                     headers: {'Content-Type': 'application/json'},
                     success: function(res) {
-                        alert(JSON.stringify(res));
                         if(res.code ==0){
                             util.hint('添加员工成功');
                             util.hideLoading();
@@ -219,13 +217,14 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
             //接收指纹录入结果
             var setWebSocket = function(uid){
                 if(window.WebSocket){
-                    var sock = new SockJS('/cloudapp/kq/user/'+ uid +'/finger');
+                    //var sock = new SockJS('/cloudapp/kq/user/'+ uid +'/finger');
+                    var sock = new SockJS('/');
                     sock.onopen = function(){
-                        sock.send(JSON.stringify({time:(new Date().getTime)}));
+                        //sock.send(JSON.stringify({time:(new Date().getTime)}));
                     };
                     sock.onmessage = function(e){
                         var data = JSON.parse(e.data);
-                        console.log(data);
+                        console.log("data",data);
                         sock.close();
                     };
                     sock.onclose = function(){
@@ -285,17 +284,17 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
                 $listRecord.show();
                 getRecord();
             });
-
+            // 添加考情员工
             $addUser.on('click',function(){
                 deli.app.user.select({
                     "id":"355671868335718400",
                     "name": "可选人员",
                     "mode": "multi", //多选
-                    "rootDeptId": "355671868335718401", //设置可选顶级部门的Id
+                    "root_dept_id": "355671868335718401", //设置可选顶级部门的Id
                     "max": 200, //选择人数限制
-                    "userIds": ["355672617635545088", "362618666346348544"],
+                    "selectedDeptIds": ["355672617635545088", "362618666346348544"],
                     //已选的用户
-                    "disabledUserIds": ["355672596013907968", "360009358211284992"]
+                    "disabledDeptIds": ["355672596013907968", "360009358211284992"]
                 }, function(data) {
                     var res = JSON.parse(data);
                     util.showLoading();
@@ -305,21 +304,6 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
                 }, function(resp) {
                     console.log("resp",resp);
                 });
-                /*var data = {
-                    "users":[{
-                        "avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508327196283&di=85b33e8e857ce30f5172018f125204f1&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2f35b6f4c81630e924b999f36b.jpg",
-                        "name": "石头",
-                        "user_id": "355671868335718401",
-                        "empno": "1234567890"
-                    },
-                    {
-                        "avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508327196283&di=85b33e8e857ce30f5172018f125204f1&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2f35b6f4c81630e924b999f36b.jpg",
-                        "name": "石头2",
-                        "user_id": "355671868335718402",
-                        "empno": "1234567891"
-                    }]
-                };*/
-                //getAdd(data);
             });
         },
         getQuery: function(param) {

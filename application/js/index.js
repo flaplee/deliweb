@@ -11,7 +11,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
     // 注入配置信息
     deli.config({
         noncestr: "abcdefg", // 必填，生成签名的随机串
-        serviceId: "355373255801962497", // 必填，应用ID
+        appId: "355373255801962497", // 必填，应用ID
         timestamp: "1508755836143", // 必填，生成签名的时间戳
         signature: "b8386dc73145bb2e2ec76a0078638df7", // 必填，服务端生成的签名
         jsApiList: ['common.navigation.setTitle', 'common.navigation.setRight', 'common.navigation.close', 'common.image.upload', 'common.image.preview', 'common.location.open', 'common.location.get', 'common.message.share', 'common.phone.vibrate', 'common.connection.getNetworkType', 'common.phone.getUUID', 'common.phone.getInterface', 'app.device.bind', 'app.user.telephoneCall', 'app.user.chatOpen', 'app.user.select', 'app.department.select'] // 必填，需要使用的jsapi列表
@@ -83,17 +83,11 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                         util.hint('应用添加成功~');
                         if(res.code == 0){
                             var data = res.data;
-                            deli.app.config.init({
-                                "id":data.id,
-                                "organizationId":data.orgid,
-                                "name":data.name,
-                                "organizationName":data.name
-                            }, function(data) {}, function(resp) {});
                             deli.app.method.transit({
                                 "id":"355373255801962497",
-                                "organizationId":"355671868335718400",
+                                "org_id":"355671868335718400",
                                 "name":"智能考勤",
-                                "organizationName":"得力个人团队"
+                                "org_name":"得力个人团队"
                             }, function(data) {}, function(resp) {});
                         }else{
                             util.hint(res.msg);
