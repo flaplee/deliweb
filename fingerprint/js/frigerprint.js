@@ -218,9 +218,9 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
             var setWebSocket = function(uid){
                 if(window.WebSocket){
                     //var sock = new SockJS('/cloudapp/kq/user/'+ uid +'/finger');
-                    var sock = new SockJS('/');
+                    var sock = new SockJS("/cloudapp/kq/user/"+ uid +"/finger");
                     sock.onopen = function(){
-                        //sock.send(JSON.stringify({time:(new Date().getTime)}));
+                        sock.send(JSON.stringify({time:(new Date().getTime)}));
                     };
                     sock.onmessage = function(e){
                         var data = JSON.parse(e.data);
