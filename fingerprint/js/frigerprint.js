@@ -3,10 +3,11 @@ seajs.config({
     alias: {
         jquery:'js/jquery.js',
         util: 'js/util.js',
-        sockjs: 'js/sockjs.js'
+        sockjs: 'js/sockjs.js',
+        stomp: 'js/stomp.js'
     }
 });
-seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
+seajs.use(['jquery', 'util', 'sockjs', 'stomp'], function(jquery, util, sockjs, stomp) {
     // 注入配置信息
     deli.config({
         noncestr: "abcdefg", // 必填，生成签名的随机串
@@ -15,6 +16,31 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
         signature: "b8386dc73145bb2e2ec76a0078638df7", // 必填，服务端生成的签名
         jsApiList: ['common.navigation.setTitle', 'common.navigation.setRight', 'common.navigation.close', 'common.image.upload', 'common.image.preview', 'common.location.open', 'common.location.get', 'common.message.share', 'common.phone.vibrate', 'common.connection.getNetworkType', 'common.phone.getUUID', 'common.phone.getInterface', 'app.device.bind', 'app.user.telephoneCall', 'app.user.chatOpen', 'app.user.select', 'app.department.select'] // 必填，需要使用的jsapi列表
     });
+    $(function(){
+        var sock = new SockJS('http://192.168.0.202:9999/delicloudmock');
+        var stomp = Stomp.over(sock);
+
+        stomp.connect({}, function (frame) {
+            console.log("frame",frame);
+            var url = "/cloudapp/kq/user/355669228033933300/finger" ;
+            listenStomp(url);
+        });
+
+        function listenStomp(url){
+            stomp.subscribe(url, function (message) {  
+                var json = JSON.parse(message.body);
+                console.log(json);
+            });    
+        }
+
+        function disconnect() {
+            if (stomp != null) {
+                stomp.disconnect();
+            }
+            console.log("Disconnected");
+        }
+    });
+    
     var Page = {
         init: function() {
             var self = this;
@@ -216,24 +242,19 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
 
             //接收指纹录入结果
             var setWebSocket = function(uid){
-                if(window.WebSocket){
-                    var sock = new SockJS('/delicloudmock');
-                    sock.onopen = function(){
-                        sock.send(JSON.stringify({time:(new Date().getTime)}));
-                    };
-                    sock.onmessage = function(e){
-                        var data = JSON.parse(e.data);
-                        console.log("data",data);
-                        sock.close();
-                    };
-                    sock.onclose = function(){
-                        console.log('close');
-                    };
-                    sock.onerror = function(){
-                    };
-                }else{
-                    util.hint('浏览器不支持websocket,你尝试使用最新浏览器');
-                }
+                /*sock.onopen = function(){
+                    sock.send(JSON.stringify({time:(new Date().getTime)}));
+                };
+                sock.onmessage = function(e){
+                    var data = JSON.parse(e.data);
+                    console.log("data",data);
+                    sock.close();
+                };
+                sock.onclose = function(){
+                    console.log('close');
+                };
+                sock.onerror = function(){
+                };*/
             };
 
             //录入指纹  //device/kq/finger/{user_id}
@@ -250,21 +271,9 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
                         }else{
                             util.hint(res.errorMsg);
                         }
-                        /*console.log("finger", res);
-                        if(res.code == 0){
-                            // setWebSocket();
-                            setFingerStatus($('#dialog .fingerBox .content'),0);
-                        }else{
-                            window.setTimeout(function(){
-                                getFinger(sn, uid);
-                            },10000);
-                        }*/
                     },
                     error: function(res) {
-                        /*$('#finger-status').addClass('finger-status-img2');
-                        window.setTimeout(function(){
-                            getFinger(sn, uid);
-                        },10000);*/
+                        util.hint('网络错误，请重试');
                     }
                 });
             };
@@ -288,12 +297,11 @@ seajs.use(['jquery', 'util', 'sockjs'], function(jquery, util, sockjs) {
                 deli.app.user.select({
                     "id":"355671868335718400",
                     "name": "可选人员",
-                    "mode": "multi", //多选
-                    "root_dept_id": "355671868335718401", //设置可选顶级部门的Id
-                    "max": 200, //选择人数限制
-                    "selectedDeptIds": ["355672617635545088", "362618666346348544"],
-                    //已选的用户
-                    "disabledDeptIds": ["355672596013907968", "360009358211284992"]
+                    "mode": "multi",
+                    "root_dept_id": "355671868335718401",
+                    "max": 200,
+                    "selected_dept_ids": ["355672617635545088", "362618666346348544"],
+                    "disabled_dept_ids": ["355672596013907968", "360009358211284992"]
                 }, function(data) {
                     var res = JSON.parse(data);
                     util.showLoading();

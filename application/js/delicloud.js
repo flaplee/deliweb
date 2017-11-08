@@ -36,11 +36,10 @@ create delicloud.js for js_sdk api
         'common.notification.hidePreloader',
         'common.notification.toast',
         'app.organization.create', //内部使用，进入创建组织
-        'app.config.init', //内部使用，进入开始使用
-        'app.method.checkJsApis',
+        'app.organization.select', //内部使用，进入选择组织
+        'app.method.transit', //内部使用，进入开始使用
         'app.user.get', //获取用户信息
-        'app.organization.select', //选择组织
-        'app.method.transit' //内部使用，进入开始使用,初始化配置
+        'app.organization.get' //获取组织信息
     ];
     var JSSDK_VERSION = '0.0.1';
     var ua = win.navigator.userAgent;
@@ -77,14 +76,14 @@ create delicloud.js for js_sdk api
             }
             //to do: 参数名待统一
             config = {
-                serviceId: obj.serviceId || -1,
+                appId: obj.appId || -1,
                 timestamp: obj.timestamp,
                 noncestr: obj.noncestr,
                 sign: obj.signature
                     /*jsApiList: obj.jsApiList*/
             };
-            if (obj.serviceId) {
-                config.serviceId = obj.serviceId;
+            if (obj.appId) {
+                config.appId = obj.appId;
             }
         },
         error: function(fn) {
@@ -111,6 +110,7 @@ create delicloud.js for js_sdk api
                 } else {
                     if (deli.ios) {
                         bridge.callHandler(appMethod, config, function(res) {
+                            //alert(JSON.stringify(res));
                             var data = JSON.parse(res) || {};
                             var code = data.code;
                             var msg = data.data.msg || '';
@@ -151,7 +151,6 @@ create delicloud.js for js_sdk api
                         });
                     }
                 }
-
                 //第一次初始化后要做的事情
                 if (already === false) {
                     already = true;
@@ -300,10 +299,9 @@ create delicloud.js for js_sdk api
 
         //统一回调处理
         var callback = function(response) {
-            //alert("统一响应：" + JSON.stringify(response));
             console.log('统一响应：', response);
             if (deli.ios) {
-                var data = response || {};
+                var data = JSON.parse(response) || {};
                 var code = data.code;
                 var result = data.data;
                 //code 0 表示成功, 其它表示失败
@@ -342,7 +340,7 @@ create delicloud.js for js_sdk api
                     });
                 });
                 //WebViewJavascriptBridge.callHandler(method, p, callbackSuccess);
-                WebViewJavascriptBridge.callHandler(method, p);
+                WebViewJavascriptBridge.callHandler(method, p, callback);
             } else {
                 WebViewJavascriptBridge.callHandler(method, p, callback);
                 //WebViewJavascriptBridge.callHandler(method, p, callbackSuccess);

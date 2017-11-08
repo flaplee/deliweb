@@ -27,7 +27,8 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
             var token = util.getQuery('token'),
                 appid = util.getQuery('appid'),
                 orgid = util.getQuery('orgid'),
-                userid = util.getQuery('userid');
+                userid = util.getQuery('userid'),
+                app_name;
             var orgHtml = '';
             var $page = $('#page'),
                 $detail = $page.find('.content > .appdetail'),
@@ -45,23 +46,8 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                 $btnSwitch = $detailBtns.find('.btn-switch'),
                 $btnRelated = $detailBtns.find('.btn-related');
             var setInitBtn = function(){};
-            // test
-            /*setTimeout(function(){
-                deli.app.user.get({
-                    "user_id":"349944153787858944"
-                }, function(data) {
-                    alert(JSON.stringify(data));
-                }, function(resp) {});
-            });*/
-            // test chat
-            /*setTimeout(function(){
-                deli.app.user.chatOpen({
-                    "acc_id":"1d2c33e772ed56b76a6b4c47643bd88c"
-                }, function(data) {
-                    //alert(JSON.stringify(data));
-                }, function(resp) {});
-            });*/
-            var sentAppBind = function(userid, orgid, appid, token){
+            var sentAppBind = function(userid, orgid, orgname, appid, appname, token){
+                alert(orgname);
                 $.ajax({
                     "type": "get",
                     "url": "/v1.0/cd/bind",
@@ -76,18 +62,15 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                     "dataType": "jsonp",
                     "jsonp": "callback",
                     success: function(res) {
-                        //alert("success");
-                        //alert(JSON.stringify(res));
-                        //util.hideLoading();
-                        //deli.common.notification.hidePreloader({}, function(data) {}, function(resp) {});
                         util.hint('应用添加成功~');
                         if(res.code == 0){
                             var data = res.data;
+                            alert(orgname);
                             deli.app.method.transit({
-                                "id":"355373255801962497",
-                                "org_id":"355671868335718400",
-                                "name":"智能考勤",
-                                "org_name":"得力个人团队"
+                                "id":appid,
+                                "org_id":orgid,
+                                "name":appname || '',
+                                "org_name":orgname || ''
                             }, function(data) {}, function(resp) {});
                         }else{
                             util.hint(res.msg);
@@ -105,10 +88,16 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                 util.confirm('请为应用添加组织', function(sure) {
                     if (sure) {
                         deli.app.organization.select({
-                            'type':'group'
+                            'type':'both'
                         }, function(data) {
-                            var org_id = data.id;
-                            sentAppBind(userid, org_id, appid, token);
+                            var org_id, org_name;
+                            if(deli.ios){
+                                org_id = data.id;
+                                org_name = data.name;
+                            }
+                            alert(org_name);
+                            if(deli.android)org_id = data;
+                            sentAppBind(userid, org_id, org_name, appid, app_name, token);
                         }, function(resp) {});
                     };
                 });
@@ -125,20 +114,24 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                         if (res.code == 0) {
                             var data = res.data['result'];
                             var innerHTML = '', deviceHtml = '';
+                            app_name = data.name;
                             $detailItemIcon.find('img').attr('src',data.icon);
-                            $detailItemInfo.find('.appdetail-title').text(data.name);
+                            $detailItemInfo.find('.appdetail-title').text(app_name);
                             $detailItemInfo.find('.appdetail-content').text(data.slogan);
-                            if(data.description.length <= 200){
-                                $introduceMore.hide();
-                                $introduceMore.unbind('click');
+                            if(data.description){
+                                if(data.description.length >= 200){
+                                    $introduceMore.show();
+                                    $introduceMore.on('click', function() {
+                                        var c = $(this);
+                                        $introduceCont.find('p.content-inner').css({ "overflow": "hidden", "height": "auto","white-space":"pre-wrap"});
+                                        $introduceMore.hide();
+                                    });
+                                }
+                                $introduceCont.find('p.content-inner').html(data.description);
                             }else{
-                                $introduceMore.on('click', function() {
-                                    var c = $(this);
-                                    $introduceCont.find('p.content-inner').css({ "overflow": "hidden", "height": "auto","white-space":"pre-wrap"});
-                                    $introduceCont.find('div.introduce-more').css({"display":"none"});
-                                });
+                                $introduceMore.hide();
                             }
-                            $introduceCont.find('p.content-inner').html(data.description);
+                            
                             switch (data.app_type) {
                                 case 'group':
                                     innerHTML = '<span class="appdetail-category-name">团队可用</span>';
@@ -292,30 +285,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                     }
                 });
             };
-
             getAppIsBind(appid, orgid);
-
-            /* 获取当前用户组织*/
-            /*var getUserOrg = function(userid, token, callback) {
-                $.ajax({
-                    "type": "get",
-                    "headers": {
-                        "Dauth": userid + ' ' + (new Date().valueOf()) + ' ' + token
-                    },
-                    //"url": "/v1.0/cd/user/me/org",
-                    "url":"/v1.0/cd/app/"+ appid +"/bind_info/org/"+ orgid +"",
-                    "dataType": "jsonp",
-                    "jsonp": "callback",
-                    success: function(res) {
-                        console.log("organization",res);
-                        if (res.code == 0) {
-                            if (typeof callback === 'function') {
-                                callback(res.data.result);
-                            }
-                        }
-                    }
-                });
-            };*/
         }
     };
     Page.init();
