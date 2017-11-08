@@ -299,6 +299,7 @@ create delicloud.js for js_sdk api
 
         //统一回调处理
         var callback = function(response) {
+            //alert("统一响应：" + JSON.stringify(response));
             console.log('统一响应：', response);
             if (deli.ios) {
                 var data = JSON.parse(response) || {};

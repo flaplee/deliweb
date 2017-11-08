@@ -47,10 +47,9 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                 $btnRelated = $detailBtns.find('.btn-related');
             var setInitBtn = function(){};
             var sentAppBind = function(userid, orgid, orgname, appid, appname, token){
-                alert(orgname);
                 $.ajax({
                     "type": "get",
-                    "url": "/v1.0/cd/bind",
+                    "url": "http://test4.delicloud.cn:9001/v1.0/cd/bind",
                     "headers": {
                         "Dauth": userid + ' ' + (new Date().valueOf()) + ' ' + util.buildHash(token)
                     },
@@ -65,7 +64,6 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                         util.hint('应用添加成功~');
                         if(res.code == 0){
                             var data = res.data;
-                            alert(orgname);
                             deli.app.method.transit({
                                 "id":appid,
                                 "org_id":orgid,
@@ -95,8 +93,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                                 org_id = data.id;
                                 org_name = data.name;
                             }
-                            alert(org_name);
-                            if(deli.android)org_id = data;
+                            if(deli.android)org_id = data.org_id;
                             sentAppBind(userid, org_id, org_name, appid, app_name, token);
                         }, function(resp) {});
                     };
@@ -107,7 +104,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
             var getInitData = function(id) {
                 $.ajax({
                     "type": "get",
-                    "url": "/v1.0/cd/app/"+ id,
+                    "url": "http://test4.delicloud.cn:9001/v1.0/cd/app/"+ id,
                     "dataType": "jsonp",
                     "jsonp": "callback",
                     success: function(res) {
@@ -187,7 +184,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
             var getDeviceAndOrg = function(appid, orgid, callback){
                 $.ajax({
                     "type": "get",
-                    "url": "/v1.0/cd/app/"+ appid +"/bind_info/org/"+ orgid +"",
+                    "url": "http://test4.delicloud.cn:9001/v1.0/cd/app/"+ appid +"/bind_info/org/"+ orgid +"",
                     "dataType": "jsonp",
                     "jsonp": "callback",
                     success: function(res) {
@@ -251,7 +248,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                     "headers": {
                         "Dauth": userid + ' ' + (new Date().valueOf()) + ' ' + util.buildHash(token)
                     },
-                    "url": "/v1.0/cd/app/group/" + orgid + "/permission",
+                    "url": "http://test4.delicloud.cn:9001/v1.0/cd/app/group/" + orgid + "/permission",
                     "dataType": "jsonp",
                     "jsonp": "callback",
                     success: function(res) {
@@ -269,7 +266,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
             var getAppIsBind = function(appid, orgid) {
                 $.ajax({
                     "type": "get",
-                    "url": "/v1.0/cd/app/isbind/app/" + appid + "/org/" + orgid + "",
+                    "url": "http://test4.delicloud.cn:9001/v1.0/cd/app/isbind/app/" + appid + "/org/" + orgid + "",
                     "dataType": "jsonp",
                     "jsonp": "callback",
                     success: function(res) {
