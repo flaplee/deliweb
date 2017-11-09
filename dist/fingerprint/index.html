@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta name="format-detection" content="email=no"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" name="viewport">
+<title>考情应用</title>
+<link rel="stylesheet" href="./css/index.css" media="all"/>
+</head>
+<body>
+<div id="page">
+  <div class="finger-wrap-search" style="display: none;">
+    <div class="kq-search kq-input-autoclear finger-search">
+      <div class="kq-search-input">
+        <div class="kq-search-icon"><i class="kq-icon-search"></i></div>
+        <input class="kq-search-value" id="search" type="text" placeholder="请输入关键词搜索 " value="">
+        <span class="finger-btn-search fn-hide" id="btn-search">搜索</span>
+      </div>
+      <div class="finger-search-cancel fn-hide" id="btn-cancel">取消</div>
+    </div>
+  </div>
+
+  <div class="finger-wrap-add">
+    <div class="kq-add finger-add">
+      <a href="javascript:;" class="btm-link" id="add-user">添加考情员工</a>
+    </div>
+  </div>
+
+  <!--finger index content begin-->
+  <div class="outer finger-outer">
+    <div class="finger-box">
+      <div class="active">
+        <section class="kq-scroll" id="accurate-scroll">
+        <!--list begin-->
+          <div class="kq-list kq-list-flat kq-list-flat-chip finger-index-list">
+            <div id="finger-index-list">
+              <div class="finger-index-list-inner kq-list">
+                <div class="kq-list-item">
+                  <div class="kq-list-content">
+                    <div class="kq-list-info">
+                      <a href="javascript:;"><img class="icon-active" src="./images/avatar.jpg"></a>
+                      <span class="kq-list-info-name">张飞</span>
+                    </div>
+                    <div class="kq-list-text">
+                        <div class="kq-list-status">已录入(3)</div>
+                        <span>员工编号:123456</span>
+                    </div>
+                  </div>
+                  <div class="kq-list-btn">
+                    <a href="javascript:;" data-user_id="355669228033933312">
+                      <button type="button" class="kq-button kq-button-md kq-button-white kq-button-light" kq-mode="small">录入指纹</button>
+                    </a>
+                  </div>
+                </div>
+                <div class="kq-list-item">
+                  <div class="kq-list-content">
+                    <div class="kq-list-info">
+                      <a href="javascript:;"><img class="icon-active" src="./images/avatar.jpg"></a>
+                      <span class="kq-list-info-name">张飞</span>
+                    </div>
+                    <div class="kq-list-text">
+                        <div class="kq-list-status">已录入(3)</div>
+                        <span>员工编号:123456</span>
+                    </div>
+                  </div>
+                  <div class="kq-list-btn">
+                    <a href="javascript:;" data-user_id="355669228033933312">
+                      <button type="button" class="kq-button kq-button-md kq-button-white kq-button-light" kq-mode="small">录入指纹</button>
+                    </a>
+                  </div>
+                </div>
+                <div class="kq-list-item">
+                  <div class="kq-list-content">
+                    <div class="kq-list-info">
+                      <a href="javascript:;"><img class="icon-active" src="./images/avatar.jpg"></a>
+                      <span class="kq-list-info-name">张飞2</span>
+                    </div>
+                    <div class="kq-list-text">
+                        <div class="kq-list-status kq-list-status-disabled">已录入<span class="kq-list-status">(3)</span></div>
+                        <span>员工编号:123456</span>
+                    </div>
+                  </div>
+                  <div class="kq-list-btn">
+                    <a href="javascript:;" data-user_id="355669228033933312">
+                      <button type="button" class="kq-button kq-button-md kq-button-white kq-button-light" kq-mode="small" disabled>录入指纹</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="finger-record-list-inner kq-list">
+              </div>
+            </div>
+          </div>
+        <!--list end-->
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- menu begin-->
+  <div class="kq-flexbox kq-flexbox-average finger-btm thin-line-b" id="finger-btm-btn">
+    <div class="kq-flexbox-item finger-btn-btn-l">
+      <a href="javascript:;" class="kq-button-list" id="kq-list"><button type="button" class="kq-button kq-button-md kq-button-white kq-button-light">考情</button></a>
+    </div>
+    <div class="kq-flexbox-item finger-btn-btn-l">
+      <a href="javascript:;" class="kq-button-record" id="kq-record"><button type="button" class="kq-button kq-button-md kq-button-white kq-button-light">数据</button></a>
+    </div>
+  </div>
+  <!-- menu end-->
+</div>
+
+<!-- dialog begin -->
+<div id="dialog">
+  <div>
+    <div class="content"></div>
+    <div class="btns"><a class="no" href="javascript:;">取消</a><a class="yes" href="javascript:;">推荐开通</a></div>
+    <a class="close" href="javascript:;"></a>
+  </div>
+</div>
+<!-- dialog end -->
+
+<!-- toast begin -->
+<div id="hint"><div class="text">_</div></div>
+<!-- toast end -->
+
+<!--loading begin-->
+<div id="loading">
+  <div><div class="ico"></div>_</div>
+</div>
+<!--loading end-->
+<script src="./js/delicloud.js"></script>
+<script src='./js/sea.js'></script>
+<script src='./js/frigerprint.js'></script>
+</body>
+</html>

@@ -19,16 +19,20 @@ seajs.use(['jquery', 'util', 'sockjs', 'stomp'], function(jquery, util, sockjs, 
     $(function(){
         var sock = new SockJS('http://192.168.0.202:9999/delicloudmock');
         var stomp = Stomp.over(sock);
+
         stomp.connect({}, function (frame) {
-            var url = "/user/355373255801962496/message";
+            console.log("frame",frame);
+            var url = "/cloudapp/kq/user/355669228033933300/finger" ;
             listenStomp(url);
         });
+
         function listenStomp(url){
-            stomp.subscribe(url, function (message) {
+            stomp.subscribe(url, function (message) {  
                 var json = JSON.parse(message.body);
                 console.log(json);
-            });
+            });    
         }
+
         function disconnect() {
             if (stomp != null) {
                 stomp.disconnect();
@@ -59,7 +63,7 @@ seajs.use(['jquery', 'util', 'sockjs', 'stomp'], function(jquery, util, sockjs, 
             //设置标题
             var setTitle = function(){
                 setTimeout(function(){
-                    deli.common.navigation.setTitle({'title':'考情假期管理'},function(data){},function(resp){});
+                    deli.common.navigation.setTitle({'title':'考勤假期管理'},function(data){},function(resp){});
                 });
             }();
 

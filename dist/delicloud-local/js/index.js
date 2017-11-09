@@ -9,7 +9,7 @@
     // 注入配置信息
     deli.config({
         noncestr: "abcdefg", // 必填，生成签名的随机串
-        serviceId: "355373255801962497", // 必填，应用ID
+        appId: "355373255801962497", // 必填，应用ID
         timestamp: "1508755836143", // 必填，生成签名的时间戳
         signature: "b8386dc73145bb2e2ec76a0078638df7", // 必填，服务端生成的签名
         jsApiList: ['common.navigation.setTitle', 'common.navigation.setRight', 'common.navigation.close', 'common.image.upload', 'common.image.preview', 'common.location.open', 'common.location.get', 'common.message.share', 'common.phone.vibrate', 'common.connection.getNetworkType', 'common.phone.getUUID', 'common.phone.getInterface', 'app.device.bind', 'app.user.telephoneCall', 'app.user.chatOpen', 'app.user.select', 'app.department.select'] // 必填，需要使用的jsapi列表
@@ -47,7 +47,7 @@
                         break;
                     case "preview":
                         deli.common.image.preview({
-                            current:1,
+                            current:0,
                             urls: ["http://www.nbdeli.com/formwork/default/images/case-new-1.jpg","http://www.nbdeli.com/formwork/default/images/case-li-img.jpg","http://www.nbdeli.com/formwork/default/images/case-li-img4.jpg","http://www.nbdeli.com/formwork/default/images/case-li-img3.jpg"]
                         }, function(data) {}, function(resp) {});
                         break;
@@ -89,9 +89,19 @@
                     case "bind":
                         deli.app.device.bind({}, function(data) {}, function(resp) {});
                         break;
+                    case "user.get":
+                        deli.app.user.get({"user_id":"349944153787858944"},function(data){
+                            alert(JSON.stringify(data));
+                        },function(resp){});
+                        break;
+                    case "organization.get":
+                        deli.app.organization.get({"org_id":"378220685689880576"},function(data){
+                            alert(JSON.stringify(data));
+                        },function(resp){});
+                        break;
                     case "telephoneCall":
                         deli.app.user.telephoneCall({
-                            "userId": "355672617635545088"
+                            "user_id": "355672617635545088"
                         }, function(data) {}, function(resp) {});
                         break;
                     case "chatOpen":
@@ -105,11 +115,11 @@
                             "id":"355671868335718400",
                             "name": "可选人员",
                             "mode": "multi", //多选
-                            "rootDeptId": "355671868335718401", //设置可选顶级部门的Id
+                            "root_dept_id": "355671868335718401", //设置可选顶级部门的Id
                             "max": 200, //选择人数限制
-                            "userIds": ["355672617635545088", "362618666346348544"],
+                            "user_ids": ["355672617635545088", "362618666346348544"],
                             //已选的用户
-                            "disabledUserIds": ["355672596013907968", "360009358211284992"]
+                            "disabled_user_ids": ["355672596013907968", "360009358211284992"]
                         }, function(data) {
                             alert(JSON.stringify(data));
                         }, function(resp) {
@@ -118,14 +128,14 @@
                         break;
                     case "department":
                         deli.app.department.select({
-                            "id":"355671868335718400",
+                            "id":"355669228033933312",
                             "name": "可选部门",
                             "mode": "multi", //多选
-                            "rootDeptId": "355671868335718401", //设置可选顶级部门的Id
+                            "root_dept_id": "355671868335718401", //设置可选顶级部门的Id
                             "max": 200, //选择部门数限制
-                            "selectedDeptIds": ["355671868335718404", "355678628404527106"],
+                            "selected_dept_ids": ["355671868335718404", "355678628404527106"],
                             //已选的部门
-                            "disabledDeptIds": ["355678628404527106", "355678749540220928"]
+                            "disabled_dept_ids": ["355678628404527106", "355678749540220928"]
                             //禁止选择的部门
                         }, function(data) {
                             alert(JSON.stringify(data));
