@@ -16,27 +16,7 @@ seajs.use(['jquery', 'util', 'sockjs', 'stomp'], function(jquery, util, sockjs, 
         signature: "b8386dc73145bb2e2ec76a0078638df7", // 必填，服务端生成的签名
         jsApiList: ['common.navigation.setTitle', 'common.navigation.setRight', 'common.navigation.close', 'common.image.upload', 'common.image.preview', 'common.location.open', 'common.location.get', 'common.message.share', 'common.phone.vibrate', 'common.connection.getNetworkType', 'common.phone.getUUID', 'common.phone.getInterface', 'app.device.bind', 'app.user.telephoneCall', 'app.user.chatOpen', 'app.user.select', 'app.department.select'] // 必填，需要使用的jsapi列表
     });
-    $(function(){
-        var sock = new SockJS('http://192.168.0.202:9999/delicloudmock');
-        var stomp = Stomp.over(sock);
-        stomp.connect({}, function (frame) {
-            var url = "/user/355373255801962496/message";
-            listenStomp(url);
-        });
-        function listenStomp(url){
-            stomp.subscribe(url, function (message) {
-                var json = JSON.parse(message.body);
-                console.log(json);
-            });
-        }
-        function disconnect() {
-            if (stomp != null) {
-                stomp.disconnect();
-            }
-            console.log("Disconnected");
-        }
-    });
-    
+
     var Page = {
         init: function() {
             var self = this;
@@ -146,6 +126,32 @@ seajs.use(['jquery', 'util', 'sockjs', 'stomp'], function(jquery, util, sockjs, 
                     }
                 });
             };
+            $(function(){
+                var sock = new SockJS('http://192.168.0.202:9999/delicloudmock');
+                var stomp = Stomp.over(sock);
+                stomp.connect({}, function (frame) {
+                    var url = "/user/355373255801962496/message";
+                    listenStomp(url);
+                });
+                function listenStomp(url){
+                    stomp.subscribe(url, function (message) {
+                        var json = JSON.parse(message.body);
+                        console.log("json",json);
+                        if(json.cmd){
+                            setFingerStatus($('#dialog .fingerBox .content'),2);
+                            util.hint('用户：'+ json.payload.user_id +',新增指纹信息：'+ json.payload.fp_data +'');
+                        }else{
+                            setFingerStatus($('#dialog .fingerBox .content'),1);
+                        }
+                    });
+                }
+                function disconnect() {
+                    if (stomp != null) {
+                        stomp.disconnect();
+                    }
+                    console.log("Disconnected");
+                }
+            });
             
             var setFingerStatus = function($dom, status){
                 switch(status){
@@ -159,7 +165,7 @@ seajs.use(['jquery', 'util', 'sockjs', 'stomp'], function(jquery, util, sockjs, 
                         $dom.find('.status-timeout').show();
                         $dom.find('.status-doing').hide();
                         $dom.find('.status-success').hide();
-                        $dom.find('.finger-status').addClass('finger-status-img2');
+                        $dom.find('.finger-status').addClass('finger-status-img1');
                     break;
                     case 2:
                         $dom.find('.status-success').show();

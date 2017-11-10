@@ -17,6 +17,61 @@
     var Page = {
         init: function() {
             var that = this;
+            var userId, orgId, rootDeptId, rootDeptName;
+            //获取用户信息
+            deli.app.user.get({"user_id":""},function(data){
+                var json = JSON.parse(data);
+                userId = json.result.id;
+                $("[data-type]").on("click", function(a) {
+                    var d = $(a.target),
+                        e = d.attr("data-type");
+                    switch (e) {
+                         case "user":
+                            deli.app.user.select({
+                                //"id":"355671868335718400",
+                                "id":userId,
+                                "name": "可选人员",
+                                "mode": "multi", //多选
+                                "root_dept_id": "355671868335718401", //设置可选顶级部门的Id
+                                "max": 200, //选择人数限制
+                                "user_ids": ["355672617635545088", "362618666346348544"],
+                                //已选的用户
+                                "disabled_user_ids": ["355672596013907968", "360009358211284992"]
+                            }, function(data) {
+                                alert(JSON.stringify(data));
+                            }, function(resp) {
+                                console.log("resp",data);
+                            });
+                            break;
+                    }
+                });
+            },function(resp){});
+            //获取组织信息
+            deli.app.organization.get({"org_id":""},function(data){
+                var json = JSON.parse(data);
+                orgId = json.result.id;
+                $("[data-type]").on("click", function(a) {
+                    var d = $(a.target),
+                        e = d.attr("data-type");
+                    switch (e) {
+                        case "department":
+                            deli.app.department.select({
+                                "id":orgId,
+                                "name": "可选部门",
+                                "mode": "multi", //多选
+                                "root_dept_id": "355671868335718401", //设置可选顶级部门的Id
+                                "max": 200, //选择部门数限制
+                                "selected_dept_ids": ["355671868335718404", "355678628404527106"],
+                                //已选的部门
+                                "disabled_dept_ids": ["355678628404527106", "355678749540220928"]
+                                //禁止选择的部门
+                            }, function(data) {
+                                alert(JSON.stringify(data));
+                            }, function(resp) {});
+                            break;
+                    }
+                });
+            },function(resp){});
             $("[data-type]").on("click", function(a) {
                 var d = $(a.target),
                     e = d.attr("data-type");
@@ -109,37 +164,6 @@
                             "type":"single",
                             "chat_id": "d80822b2429448e9e60e3a0f9b1c7eaa"
                         }, function(data) {}, function(resp) {});
-                        break;
-                    case "user":
-                        deli.app.user.select({
-                            "id":"355671868335718400",
-                            "name": "可选人员",
-                            "mode": "multi", //多选
-                            "root_dept_id": "355671868335718401", //设置可选顶级部门的Id
-                            "max": 200, //选择人数限制
-                            "user_ids": ["355672617635545088", "362618666346348544"],
-                            //已选的用户
-                            "disabled_user_ids": ["355672596013907968", "360009358211284992"]
-                        }, function(data) {
-                            alert(JSON.stringify(data));
-                        }, function(resp) {
-                            console.log("resp",data);
-                        });
-                        break;
-                    case "department":
-                        deli.app.department.select({
-                            "id":"355669228033933312",
-                            "name": "可选部门",
-                            "mode": "multi", //多选
-                            "root_dept_id": "355671868335718401", //设置可选顶级部门的Id
-                            "max": 200, //选择部门数限制
-                            "selected_dept_ids": ["355671868335718404", "355678628404527106"],
-                            //已选的部门
-                            "disabled_dept_ids": ["355678628404527106", "355678749540220928"]
-                            //禁止选择的部门
-                        }, function(data) {
-                            alert(JSON.stringify(data));
-                        }, function(resp) {});
                         break;
                 }
             });

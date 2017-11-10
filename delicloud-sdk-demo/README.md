@@ -6,9 +6,9 @@
 
 ## 支持
 
-"serviceId":"355373255801962497"
+"appId":"355373255801962497"
 
-"serviceKey":"bbTMIYs8bHww6Zq9AUd5tfXX"
+"appKey":"bbTMIYs8bHww6Zq9AUd5tfXX"
  
 app登录账户和密码: 13163216355 qwer1234
 

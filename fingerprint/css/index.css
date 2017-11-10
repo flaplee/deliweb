@@ -972,8 +972,8 @@ a {
 #dialog .fingerBox .content .finger-tips.finger-tips-overtime{color: #de0347;}
 #dialog .fingerBox .content .finger-tips.finger-tips-doing,#dialog .fingerBox .content .finger-tips.finger-tips-success{color: #477fff;}
 #dialog .fingerBox .content .finger-tips span{background-image:url(../images/right.png.png);background-repeat:no-repeat;background-size:100% 100%;display: inline-block;vertical-align: middle;margin-right: 5px;}
-#dialog .fingerBox .content .finger-tips span.icon-entry-overtime{background-image:url(../images/warn.png);width: 16px;height: 16px;}
-#dialog .fingerBox .content .finger-tips span.icon-entry-success{background-image:url(../images/right.png);width: 16px;height: 16px;}
+#dialog .fingerBox .content .finger-tips span.icon-entry-overtime{background-image:url(../images/warn.png);width: 16px;height: 16px;margin-top: -2px;}
+#dialog .fingerBox .content .finger-tips span.icon-entry-success{background-image:url(../images/right.png);width: 16px;height: 16px;margin-top: -2px;}
 #dialog .fingerBox .content .status-timeout{display: none;}
 #dialog .fingerBox .content .status-success{display: none;}
 #dialog .fingerBox .content .status-doing{display: block;}
@@ -987,8 +987,8 @@ a {
 #dialog div.fingerBox .close{display: none;}
 #dialog .fingerBox .content .finger-status{font-size: 12px; line-height: 18px; text-align: justify; width: 90px; height: 90px; margin: 30px auto 20px; text-align: center; display: block;}
 #dialog .fingerBox .content #finger-status.finger-status-img,#dialog .fingerBox .content .finger-status.finger-status-img1,#dialog .fingerBox .content .finger-status.finger-status-img2{background-image:url(../images/finger1.png);background-repeat:no-repeat;background-size:100% 100%;}
-#dialog .fingerBox .content #finger-status.finger-status-img1{background-image:url(../images/finger2.png);}
-#dialog .fingerBox .content #finger-status.finger-status-img2{background-image:url(../images/finger3.png);}
+#dialog .fingerBox .content #finger-status.finger-status-img1{background-image:url(../images/finger3.png);}
+#dialog .fingerBox .content #finger-status.finger-status-img2{background-image:url(../images/finger2.png);}
 
 /* loading */
 #loading{position:absolute;left:0;right:0;bottom:0;top:0;visibility:hidden;background-color: rgba(0, 0, 0, 0.3);z-index: 1001;}

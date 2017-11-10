@@ -61,7 +61,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                     "dataType": "jsonp",
                     "jsonp": "callback",
                     success: function(res) {
-                        alert(JSON.stringify(res));
+                        //alert(JSON.stringify(res));
                         if(res.code == 0){
                             //util.hint('应用添加成功~',7000);
                             deli.common.notification.toast({
@@ -80,7 +80,7 @@ seajs.use(['jquery', 'util', 'fastclick', 'swiper'], function(jquery, util, fast
                         }
                     },
                     error:function(res){
-                        alert(JSON.stringify(res));
+                        //alert(JSON.stringify(res));
                         if(res.readyState == 4 && res.status == 200){
                             util.hint(JSON.parse(res.responseText).msg);
                         }
